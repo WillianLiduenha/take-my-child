@@ -8,7 +8,11 @@ class DriverModel {
   final VanModel van;
   final String cnh;
 
-  DriverModel(this.user, this.van, this.cnh);
+  DriverModel(
+    this.user,
+    this.van,
+    this.cnh,
+  );
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,5 +32,6 @@ class DriverModel {
 
   String toJson() => json.encode(toMap());
 
-  factory DriverModel.fromJson(String source) => DriverModel.fromMap(json.decode(source));
+  factory DriverModel.fromJson(String source) =>
+      DriverModel.fromMap(json.decode(source));
 }

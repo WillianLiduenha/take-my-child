@@ -3,12 +3,17 @@ import 'dart:convert';
 class UserModel {
   final String id;
   final String name;
+  final String login;
+  final String password;
   final String cpf;
   final String rg;
   final String telephone;
+  
   UserModel({
     this.id,
     this.name,
+    this.login,
+    this.password,
     this.cpf,
     this.rg,
     this.telephone,
@@ -18,6 +23,8 @@ class UserModel {
     return {
       'id': id,
       'name': name,
+      'login': login,
+      'password': password,
       'cpf': cpf,
       'rg': rg,
       'telephone': telephone,
@@ -28,6 +35,8 @@ class UserModel {
     return UserModel(
       id: map['id'],
       name: map['name'],
+      login: map['login'],
+      password: map['password'],
       cpf: map['cpf'],
       rg: map['rg'],
       telephone: map['telephone'],
@@ -36,5 +45,6 @@ class UserModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source));
 }

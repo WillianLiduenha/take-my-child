@@ -1,27 +1,38 @@
 import 'dart:convert';
 
 class ChildModel {
+  final String name;
   final String school;
-  final bool go;
+  final String addressSchool;
+  final String route;
 
-  ChildModel(this.school, this.go);
-  
+  ChildModel(
+    this.name,
+    this.school,
+    this.addressSchool,
+    this.route,
+  );
 
   Map<String, dynamic> toMap() {
     return {
+      'name': name,
       'school': school,
-      'go': go,
+      'addressSchool': addressSchool,
+      'route': route,
     };
   }
 
   factory ChildModel.fromMap(Map<String, dynamic> map) {
     return ChildModel(
+      map['name'],
       map['school'],
-      map['go'],
+      map['addressSchool'],
+      map['route'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ChildModel.fromJson(String source) => ChildModel.fromMap(json.decode(source));
+  factory ChildModel.fromJson(String source) =>
+      ChildModel.fromMap(json.decode(source));
 }
