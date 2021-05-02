@@ -24,7 +24,7 @@ class App extends StatelessWidget {
         '/cadastroaluno': (context) => cadastro_aluno(),
         '/paginainicial': (context) => pagina_inicial(),
       },
-      initialRoute: '/cadastrovan',
+      initialRoute: '/',
     );
     // o home vai indicar qual é a tela inicial da aplicação
   }

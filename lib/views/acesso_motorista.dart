@@ -19,6 +19,7 @@ class _Acesso_motorista extends State<acesso_motorista> {
     return Scaffold(
       //início da tela
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -36,35 +37,45 @@ class _Acesso_motorista extends State<acesso_motorista> {
         centerTitle: false,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 10),
         width: double.infinity,
+        height: double.infinity,
+        color: Colors.yellow,
+        padding: EdgeInsets.only(top: 10),
         child: Column(
           children: [
             Flexible(
               flex: 1,
-              child: Container(
-                height: 200,
-                child: Image.asset(
-                  "assets/images/van.png",
-                ),
-              ),
-            ),
-            Text(
-              "Take my child!",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 130,
+                    child: Image.asset(
+                      "assets/images/van.png",
+                    ),
+                  ),
+                  Text(
+                    "Take my child!",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              height: 120,
+              height: 50,
             ),
             Flexible(
               flex: 2,
               child: Form(
                 key: _formKey,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 40),
                   child: Column(
                     children: [
                       TextFormField(
