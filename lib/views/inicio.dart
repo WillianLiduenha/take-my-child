@@ -56,7 +56,13 @@ class _Inicio extends State<inicio> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 20,
+                  ),
+                  Text(
+                    "Este é seu primeiro acesso ao TakeMyChild, neste aplicativo facilitaremos tanto para Motoristas de Vans quanto aos Pais corujas!",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
                   Container(
                     height: 50,
@@ -64,9 +70,9 @@ class _Inicio extends State<inicio> {
                     width: double.maxFinite,
                     child: TextButton(
                       onPressed: () =>
-                          Navigator.of(context).pushNamed('/acessomotorista'),
+                          Navigator.of(context).pushNamed('/acesso'),
                       child: Text(
-                        "Acesso motorista",
+                        "Acesso ao sistema",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -84,34 +90,7 @@ class _Inicio extends State<inicio> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    width: double.maxFinite,
-                    child: TextButton(
-                        onPressed: () =>
-                            Navigator.of(context).pushNamed('/acessopais'),
-                        child: Text(
-                          "Acesso pais",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.yellow),
-                        )),
-                  ),
+                  Text("Seus filhos seguros com TakeMyChild."),
                 ],
               ),
             ),
