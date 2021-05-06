@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         '/cadastropais': (context) => cadastrar_pais(),
         '/paginainicial': (context) => pagina_inicial(),
       },
-      initialRoute: '/cadastroaluno',
+      initialRoute: '/paginainicial',
     );
     // o home vai indicar qual é a tela inicial da aplicação
   }

@@ -68,7 +68,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(1000),
                                       color:
-                                          Color.fromRGBO(240, 230, 140, 0.7)),
+                                          Color.fromRGBO(240, 230, 140, 0.7),),
                                   child: TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();

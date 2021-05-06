@@ -210,6 +210,19 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "Telefone",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                            ),
+                            //onSaved: (value) => _tarefa.texto = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
                           SizedBox(
                             height: 5,
                           ),
