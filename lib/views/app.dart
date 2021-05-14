@@ -8,6 +8,10 @@ import 'package:take_my_child/views/inicio.dart';
 import 'package:take_my_child/views/pagina_inicial.dart';
 
 import 'acesso.dart';
+import 'editar_aluno.dart';
+import 'editar_motorista.dart';
+import 'editar_pais.dart';
+import 'editar_van.dart';
 
 class App extends StatelessWidget {
   @override
@@ -23,6 +27,12 @@ class App extends StatelessWidget {
         '/cadastrovan': (context) => cadastro_van(),
         '/cadastroaluno': (context) => cadastro_aluno(),
         '/cadastropais': (context) => cadastrar_pais(),
+        
+        '/editarmotorista': (context) => Editar_motorista(),
+        '/editarvan': (context) => Editar_van(),
+        '/editaraluno': (context) => editar_aluno(),
+        '/editarpais': (context) => editar_pais(),
+
         '/paginainicial': (context) => pagina_inicial(),
       },
       initialRoute: '/acesso',
