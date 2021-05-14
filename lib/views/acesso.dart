@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/repositories/login.repository.dart';
 
 class acesso extends StatefulWidget {
   @override
@@ -6,11 +7,26 @@ class acesso extends StatefulWidget {
 }
 
 class _acesso extends State<acesso> {
+  String login2 = "";
+  String senha = "";
+
   final _formKey = GlobalKey<FormState>();
-  login(BuildContext context) {
+  login(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      Navigator.of(context).pushNamed('/paginainicial');
+      var loginRepository = LoginRepository();
+      var resposta = await loginRepository.login(login2, senha);
+
+      print(resposta);
+      /*if (resposta == "motorista") {
+        Navigator.of(context).pushNamed('/paginainicial');
+      } else {
+        if (resposta == "responsavel") {
+          Navigator.of(context).pushNamed('/paginainicialresponsavel');
+        } else {
+          print("SENHA INCORRETA");
+        }
+      }*/
     }
   }
 
@@ -108,7 +124,7 @@ class _acesso extends State<acesso> {
                           fillColor: Color.fromRGBO(240, 230, 140, 0.7),
                           filled: true,
                         ),
-                        //onSaved: (value) => _tarefa.texto = value,
+                        onSaved: (value) => login2 = value,
                         validator: (value) =>
                             value.isEmpty ? "Campo obrigatório" : null,
                       ),
@@ -137,7 +153,7 @@ class _acesso extends State<acesso> {
                           fillColor: Color.fromRGBO(240, 230, 140, 0.7),
                           filled: true,
                         ),
-                        //onSaved: (value) => _tarefa.texto = value,
+                        onSaved: (value) => senha = value,
                         validator: (value) =>
                             value.isEmpty ? "Campo obrigatório" : null,
                       ),
@@ -157,10 +173,10 @@ class _acesso extends State<acesso> {
                             ),
                           ),
                           style: ButtonStyle(
-                            shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10))),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
                             foregroundColor:
                                 MaterialStateProperty.all<Color>(Colors.black),
                             backgroundColor:
@@ -178,7 +194,9 @@ class _acesso extends State<acesso> {
                           fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -199,15 +217,20 @@ class _acesso extends State<acesso> {
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10))),
-                                foregroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.black),
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.yellow),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.yellow),
                               ),
                             ),
                           ),
-                          SizedBox(width: 100,),
+                          SizedBox(
+                            width: 100,
+                          ),
                           Container(
                             height: 50,
                             width: 175,
@@ -225,11 +248,14 @@ class _acesso extends State<acesso> {
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10))),
-                                foregroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.black),
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.yellow),
+                                        borderRadius:
+                                            BorderRadius.circular(10))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.yellow),
                               ),
                             ),
                           ),
