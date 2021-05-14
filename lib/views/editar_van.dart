@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Editar_van extends StatefulWidget {
+class editar_van extends StatefulWidget {
   @override
   _Editar_van createState() => _Editar_van();
 }
 
-class _Editar_van extends State<Editar_van> {
+class _Editar_van extends State<editar_van> {
   final _formKey = GlobalKey<FormState>();
 
   create(BuildContext context) {

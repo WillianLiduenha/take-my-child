@@ -28,8 +28,8 @@ class App extends StatelessWidget {
         '/cadastroaluno': (context) => cadastro_aluno(),
         '/cadastropais': (context) => cadastrar_pais(),
         
-        '/editarmotorista': (context) => Editar_motorista(),
-        '/editarvan': (context) => Editar_van(),
+        '/editarmotorista': (context) => editar_motorista(),
+        '/editarvan': (context) => editar_van(),
         '/editaraluno': (context) => editar_aluno(),
         '/editarpais': (context) => editar_pais(),
 

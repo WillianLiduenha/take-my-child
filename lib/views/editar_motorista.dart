@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:take_my_child/main.dart';
 
-class Editar_motorista extends StatefulWidget {
+class editar_motorista extends StatefulWidget {
   @override
   _Editar_motorista createState() => _Editar_motorista();
 }
 
-class _Editar_motorista extends State<Editar_motorista> {
+class _Editar_motorista extends State<editar_motorista> {
   final _formKey = GlobalKey<FormState>();
   next(BuildContext context) {
     if (_formKey.currentState.validate()) {
