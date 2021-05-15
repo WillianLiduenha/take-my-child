@@ -9,7 +9,6 @@ class MeusAlunos extends StatefulWidget {
 }
 
 class _MeusAlunosState extends State<MeusAlunos> {
-
   // initState() {
   //   super.initState();
   //   this.tarefas = repository.read();
@@ -116,6 +115,15 @@ class _MeusAlunosState extends State<MeusAlunos> {
           Flexible(
             flex: 9,
             child: ListView.builder(
+ itemCount: 3,
+              itemBuilder: (_, indice) {
+                return Card(
+                  
+                  child: ListTile(
+                    title: Text("teste"),
+                  ),
+                );
+              },
             ), // criar a lista com os dados do read();
           ),
         ],
