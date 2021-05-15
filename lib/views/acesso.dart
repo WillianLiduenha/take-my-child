@@ -18,15 +18,15 @@ class _acesso extends State<acesso> {
       var resposta = await loginRepository.login(login2, senha);
 
       print(resposta);
-      /*if (resposta == "motorista") {
-        Navigator.of(context).pushNamed('/paginainicial');
+      if (resposta.toString().trim() == "motorista") {
+        Navigator.of(context).pushNamed('/paginainicialmotorista');
       } else {
-        if (resposta == "responsavel") {
+        if (resposta.toString().trim() == "responsave") {
           Navigator.of(context).pushNamed('/paginainicialresponsavel');
         } else {
           print("SENHA INCORRETA");
         }
-      }*/
+      }
     }
   }
 
