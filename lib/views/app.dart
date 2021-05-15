@@ -5,7 +5,9 @@ import 'package:take_my_child/views/cadastrar_pais.dart';
 import 'package:take_my_child/views/cadastro_motorista.dart';
 import 'package:take_my_child/views/cadastro_van.dart';
 import 'package:take_my_child/views/inicio.dart';
+import 'package:take_my_child/views/meus_alunos.dart';
 import 'package:take_my_child/views/pagina_inicial_pais.dart';
+import 'package:take_my_child/views/vincular_motorista.dart';
 
 import 'acesso.dart';
 import 'editar_aluno.dart';
@@ -38,9 +40,13 @@ class App extends StatelessWidget {
 
         '/paginainicialmotorista': (context) => pagina_inicial_motorista(),
         '/paginainicialpais': (context) => pagina_inicial_pais(),
+
+        '/meusalunos': (context) => MeusAlunos(),
+
+        '/vincularmotorista': (context) => vincular_motorista(),
       },
      
-      initialRoute: '/paginainicialpais',
+      initialRoute: '/acesso',
     );
     // o home vai indicar qual é a tela inicial da aplicação
   }
