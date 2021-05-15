@@ -11,6 +11,25 @@ class _acesso extends State<acesso> {
   String senha = "";
 
   final _formKey = GlobalKey<FormState>();
+
+  Future mensagem(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Usuário ou senha está incorreta!"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   login(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -19,12 +38,15 @@ class _acesso extends State<acesso> {
 
       print(resposta);
       if (resposta.toString().trim() == "motorista") {
-        Navigator.of(context).pushNamed('/paginainicialmotorista');
+        Navigator.of(context)
+            .pushNamed('/paginainicialmotorista', arguments: login2);
       } else {
         if (resposta.toString().trim() == "responsave") {
-          Navigator.of(context).pushNamed('/paginainicialresponsavel');
+          Navigator.of(context)
+              .pushNamed('/paginainicialpais', arguments: login2);
         } else {
           print("SENHA INCORRETA");
+          mensagem(context);
         }
       }
     }
@@ -164,7 +186,9 @@ class _acesso extends State<acesso> {
                         height: 50,
                         width: double.infinity,
                         child: TextButton(
-                          onPressed: () => login(context),
+                          onPressed: () {
+                            login(context);
+                          },
                           child: Text(
                             "Entrar",
                             style: TextStyle(

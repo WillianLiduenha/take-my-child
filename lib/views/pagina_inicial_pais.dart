@@ -3,7 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class pagina_inicial_pais extends StatefulWidget {
   @override
-  _Pagina_inicial_pais createState() => _Pagina_inicial_pais ();
+  _Pagina_inicial_pais createState() => _Pagina_inicial_pais();
 }
 
 class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
@@ -59,18 +59,21 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
 
   @override
   Widget build(BuildContext context) {
+    String login = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       //início da tela
       appBar: AppBar(
         leading: Container(),
-        actions: [ IconButton(
+        actions: [
+          IconButton(
             icon: const Icon(Icons.login_outlined),
             color: Colors.black,
             onPressed: () {
+              Navigator.of(context).pop();
             },
-          ),],
+          ),
+        ],
         backgroundColor: Colors.yellow,
-        
         title: Text(
           "Página Inicial",
           style: TextStyle(
@@ -97,14 +100,15 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
                 ),
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             Flexible(
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5), color: Colors.blue),
                 width: double.infinity,
                 height: double.infinity,
-                    
               ),
             ),
           ]),

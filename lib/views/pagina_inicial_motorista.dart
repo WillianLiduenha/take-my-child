@@ -3,7 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
   @override
-  _Pagina_inicial_motorista createState() => _Pagina_inicial_motorista ();
+  _Pagina_inicial_motorista createState() => _Pagina_inicial_motorista();
 }
 
 class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
@@ -47,18 +47,21 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
 
   @override
   Widget build(BuildContext context) {
+    String login = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       //início da tela
       appBar: AppBar(
         leading: Container(),
-        actions: [ IconButton(
+        actions: [
+          IconButton(
             icon: const Icon(Icons.login_outlined),
             color: Colors.black,
             onPressed: () {
+              Navigator.of(context).pop();
             },
-          ),],
+          ),
+        ],
         backgroundColor: Colors.yellow,
-        
         title: Text(
           "Página Inicial",
           style: TextStyle(
@@ -85,7 +88,9 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
                 ),
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5), color: Colors.yellow),
@@ -100,7 +105,9 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
                         "assets/images/van.png",
                         width: 40,
                       ),
-                      SizedBox(width: 30,),
+                      SizedBox(
+                        width: 30,
+                      ),
                       Text(
                         "Iniciar turno",
                         style: TextStyle(fontSize: 25),
