@@ -5,13 +5,14 @@ import 'package:take_my_child/views/cadastrar_pais.dart';
 import 'package:take_my_child/views/cadastro_motorista.dart';
 import 'package:take_my_child/views/cadastro_van.dart';
 import 'package:take_my_child/views/inicio.dart';
-import 'package:take_my_child/views/pagina_inicial.dart';
+import 'package:take_my_child/views/pagina_inicial_pais.dart';
 
 import 'acesso.dart';
 import 'editar_aluno.dart';
 import 'editar_motorista.dart';
 import 'editar_pais.dart';
 import 'editar_van.dart';
+import 'pagina_inicial_motorista.dart';
 
 class App extends StatelessWidget {
   @override
@@ -20,9 +21,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: inicio(),
+      
       routes: {
         '/': (context) => inicio(),
         '/acesso': (context) => acesso(),
+
         '/cadastromotorista': (context) => cadastro_motorista(),
         '/cadastrovan': (context) => cadastro_van(),
         '/cadastroaluno': (context) => cadastro_aluno(),
@@ -33,9 +36,11 @@ class App extends StatelessWidget {
         '/editaraluno': (context) => editar_aluno(),
         '/editarpais': (context) => editar_pais(),
 
-        '/paginainicial': (context) => pagina_inicial(),
+        '/paginainicialmotorista': (context) => pagina_inicial_motorista(),
+        '/paginainicialpais': (context) => pagina_inicial_pais(),
       },
-      initialRoute: '/acesso',
+     
+      initialRoute: '/paginainicialpais',
     );
     // o home vai indicar qual é a tela inicial da aplicação
   }

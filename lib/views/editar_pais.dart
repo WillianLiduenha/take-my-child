@@ -11,7 +11,7 @@ class _EditarPais extends State<editar_pais> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/cadastroaluno');
+      Navigator.of(context).pushNamed('/editaraluno');
     }
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class pagina_inicial extends StatefulWidget {
+class pagina_inicial_pais extends StatefulWidget {
   @override
-  _Pagina_inicial createState() => _Pagina_inicial();
+  _Pagina_inicial_pais createState() => _Pagina_inicial_pais ();
 }
 
-class _Pagina_inicial extends State<pagina_inicial> {
+class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   final _formKey = GlobalKey<FormState>();
   SpeedDial controllerSpeedDial() {
     return SpeedDial(
@@ -18,23 +18,35 @@ class _Pagina_inicial extends State<pagina_inicial> {
       children: [
         SpeedDialChild(
           child: Icon(
-            Icons.person_add,
+            Icons.edit,
             color: Colors.black,
           ),
-          label: "Editar cadastro motorista",
+          label: "Editar cadastro responsável",
           backgroundColor: Colors.yellow,
           labelBackgroundColor: Colors.white,
           onTap: () {
-            Navigator.of(context).pushNamed('/cadastromotorista');
+            Navigator.of(context).pushNamed('/editarpais');
             setState(() {});
           },
         ),
         SpeedDialChild(
           child: Icon(
-            Icons.group_rounded,
+            Icons.warning_outlined,
+            color: Colors.red,
+          ),
+          label: "Meu filho irá faltar!",
+          labelBackgroundColor: Colors.white,
+          backgroundColor: Colors.yellow,
+          onTap: () {
+            setState(() {});
+          },
+        ),
+        SpeedDialChild(
+          child: Icon(
+            Icons.group_add,
             color: Colors.black,
           ),
-          label: "Meus alunos",
+          label: "Vincular ao motorista",
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
           onTap: () {
@@ -86,31 +98,14 @@ class _Pagina_inicial extends State<pagina_inicial> {
               ),
             ),
             SizedBox(height: 50,),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), color: Colors.yellow),
-              width: 300,
-              height: 60,
-              child: TextButton(
-                  onPressed: () => Navigator.of(context).pushNamed('/'),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/van.png",
-                        width: 40,
-                      ),
-                      SizedBox(width: 30,),
-                      Text(
-                        "Iniciar turno",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ],
-                  ),
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                  )),
+            Flexible(
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5), color: Colors.blue),
+                width: double.infinity,
+                height: double.infinity,
+                    
+              ),
             ),
           ]),
         ),

@@ -12,7 +12,7 @@ class _Editar_motorista extends State<editar_motorista> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/cadastrovan');
+      Navigator.of(context).pushNamed('/editarvan');
     }
   }
 
