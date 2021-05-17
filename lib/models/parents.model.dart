@@ -1,41 +1,44 @@
 import 'dart:convert';
 
-import 'package:take_my_child/models/child.model.dart';
 import 'package:take_my_child/models/user.model.dart';
 
 class ParentsModel {
-  final UserModel user;
-  final ChildModel child;
-  final String address;
-  final String codDriver;
+  UserModel user;
+  String address;
+  String codDriver;
+  String name;
+  String school;
+  String addressSchool;
+  String route;
 
   ParentsModel({
-    this.user,
-    this.child,
     this.address,
     this.codDriver,
+    this.name,
+    this.school,
+    this.addressSchool,
+    this.route,
   });
 
-  Map<String, dynamic> toMap() {
+  ParentsModel.fromJson(Map<String, dynamic> json) {
+    user = UserModel.fromJson(json);
+    address = json['address'];
+    codDriver = json['codDriver'];
+    name = json['name'];
+    school = json['school'];
+    addressSchool = json['addressSchool'];
+    route = json['route'];
+  }
+
+  Map<String, dynamic> toJson() {
     return {
-      'user': user.toMap(),
-      'child': child.toMap(),
-      'address': address,
-      'codDriver': codDriver,
+      "user": user.toJson(),
+      "address": address,
+      "codDriver": codDriver,
+      "name": name,
+      "school": school,
+      "addressSchool": addressSchool,
+      "route": route
     };
   }
-
-  factory ParentsModel.fromMap(Map<String, dynamic> map) {
-    return ParentsModel(
-      user: UserModel.fromMap(map['user']),
-      child: ChildModel.fromMap(map['child']),
-      address: map['address'],
-      codDriver: map['codDriver'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ParentsModel.fromJson(String source) =>
-      ParentsModel.fromMap(json.decode(source));
 }
