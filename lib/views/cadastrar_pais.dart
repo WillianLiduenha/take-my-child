@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class cadastrar_pais extends StatefulWidget {
   @override
@@ -6,12 +8,43 @@ class cadastrar_pais extends StatefulWidget {
 }
 
 class _CadastrarPais extends State<cadastrar_pais> {
+  ParentsModel _responsaveis = ParentsModel();
+  ResponsavelRepository repository = ResponsavelRepository();
+
   final _formKey = GlobalKey<FormState>();
-  next(BuildContext context) {
+ Future mensagem(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Login informado já existe no sistema"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+next(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      var resposta = await repository.verificarLogin(_responsaveis.user.login);
 
-      Navigator.of(context).pushNamed('/cadastroaluno');
+      if (resposta != "") {
+        mensagem(context);
+      } else {
+        Navigator.of(context).pushNamed('/cadastroaluno', arguments: _responsaveis);
+      }
     }
   }
 
@@ -151,14 +184,16 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 15,
                           ),
                           TextFormField(
+                            maxLength: 50,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               labelText: "Nome Completo",
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.name = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -166,6 +201,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 11,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -173,8 +209,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.cpf = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -182,6 +219,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 9,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -189,8 +227,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.rg = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -198,6 +237,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 50,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
@@ -205,12 +245,14 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.address = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           TextFormField(
+                            maxLength: 11,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -218,8 +260,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.telephone = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -227,14 +270,16 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 25,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               labelText: "Login",
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.login = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -242,6 +287,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 20,
                             obscureText: true,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -249,8 +295,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.password = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
