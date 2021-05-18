@@ -9,18 +9,28 @@ class cadastro_van extends StatefulWidget {
 
 class _Cadastro_van extends State<cadastro_van> {
   final _formKey = GlobalKey<FormState>();
+  MotoristaRepository repository = MotoristaRepository();
 
-  create(BuildContext context) {
+  create(BuildContext context, DriverModel _motorista) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      var resposta = await repository.cadastrarMotorista(_motorista);
+      print(resposta);
 
-      Navigator.of(context).pushNamed('/paginainicial');
+      if (resposta.toString() != "") {
+        print("Deu certo");
+      } else {
+        print("erro no cadastro");
+      }
+
+      //Navigator.of(context).pushNamed('/paginainicial');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     DriverModel _motorista = ModalRoute.of(context).settings.arguments;
+    //print(_motorista.cnh);
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -157,7 +167,8 @@ class _Cadastro_van extends State<cadastro_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) =>
+                              _motorista.plate_van = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -172,7 +183,7 @@ class _Cadastro_van extends State<cadastro_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _motorista.model_van = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -187,7 +198,7 @@ class _Cadastro_van extends State<cadastro_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _motorista.color_van = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -202,7 +213,7 @@ class _Cadastro_van extends State<cadastro_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _motorista.brand_van = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -212,7 +223,7 @@ class _Cadastro_van extends State<cadastro_van> {
                           height: 40,
                           child: TextButton(
                             onPressed: () {
-                              create(context);
+                              create(context, _motorista);
                             },
                             child: Text(
                               "Cadastrar",
