@@ -9,7 +9,7 @@ class ParentsModel {
   String name;
   String school;
   String addressSchool;
-  String route;
+  int route;
 
   /*ParentsModel({
     this.address,

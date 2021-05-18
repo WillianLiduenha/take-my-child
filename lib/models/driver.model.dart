@@ -33,10 +33,10 @@ class DriverModel {
     return {
       "user": user.toJson(),
       "cnh": cnh,
-      "plate_van": plate_van,
-      "model_van": model_van,
-      "color_van": color_van,
-      "brand_van": brand_van
+      "placa_van": plate_van,
+      "modelo_van": model_van,
+      "cor_van": color_van,
+      "marca_van": brand_van
     };
   }
 }
