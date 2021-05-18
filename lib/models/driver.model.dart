@@ -3,21 +3,22 @@ import 'dart:convert';
 import 'package:take_my_child/models/user.model.dart';
 
 class DriverModel {
-   UserModel user;
-   String cnh;
-   String plate_van;
-   String model_van;
-   String color_van;
-   String brand_van;
+  UserModel user = UserModel();
+  String cnh;
+  String plate_van;
+  String model_van;
+  String color_van;
+  String brand_van;
 
-  DriverModel(
+  /*DriverModel(
     this.user,
     this.cnh,
     this.plate_van,
     this.model_van,
     this.color_van,
     this.brand_van,
-  );
+  );*/
+  DriverModel();
 
   DriverModel.fromJson(Map<String, dynamic> json) {
     user = UserModel.fromJson(json);
@@ -38,5 +39,4 @@ class DriverModel {
       "brand_van": brand_van
     };
   }
-
 }

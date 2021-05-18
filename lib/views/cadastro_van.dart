@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/driver.model.dart';
+import 'package:take_my_child/repositories/motorista.repository.dart';
 
 class cadastro_van extends StatefulWidget {
   @override
@@ -18,6 +20,7 @@ class _Cadastro_van extends State<cadastro_van> {
 
   @override
   Widget build(BuildContext context) {
+    DriverModel _motorista = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       //início da tela
       appBar: AppBar(

@@ -9,7 +9,7 @@ class UserModel {
   String rg;
   String telephone;
 
-  UserModel({
+  /*UserModel({
     this.id,
     this.name,
     this.login,
@@ -17,7 +17,9 @@ class UserModel {
     this.cpf,
     this.rg,
     this.telephone,
-  });
+  });*/
+
+  UserModel();
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
