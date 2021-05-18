@@ -33,13 +33,12 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "name": name,
+      "nome": name,
       "login": login,
-      "password": password,
+      "senha": password,
       "cpf": cpf,
       "rg": rg,
-      "telephone": telephone
+      "telefone": telephone
     };
   }
 }
