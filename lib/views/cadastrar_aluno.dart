@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class cadastro_aluno extends StatefulWidget {
   @override
@@ -11,16 +13,52 @@ trajeto _percurso = trajeto.idaVolta;
 
 class _Cadastro_aluno extends State<cadastro_aluno> {
   final _formKey = GlobalKey<FormState>();
-  create(BuildContext context) {
+  ResponsavelRepository repository = ResponsavelRepository();
+
+  Future mensagem(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  create(BuildContext context, ParentsModel _responsavel) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      var resposta = await repository.cadastrarAlunos(_responsavel);
 
-      Navigator.of(context).pushNamed('/paginainicial');
+      if (resposta.toString() != "") {
+        var msg = await mensagem(context, "Cadastro efetuado com sucesso");
+        print(resposta);
+        Navigator.of(context).pushNamed('/paginainicialpais',
+            arguments: _responsavel.user.login);
+      } else {
+        mensagem(context, "Erro ao executar o cadastro");
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    ParentsModel _pais = ModalRoute.of(context).settings.arguments;
+    _pais.route = 3;
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -150,12 +188,12 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                       TextFormField(
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
-                          labelText: "Nome",
+                          labelText: "Nome do aluno",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
                         ),
-                        //onSaved: (value) => _tarefa.texto = value,
+                        onSaved: (value) => _pais.name_child = value.toString(),
                         validator: (value) =>
                             value.isEmpty ? "Campo obrigatório" : null,
                       ),
@@ -170,7 +208,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
                         ),
-                        //onSaved: (value) => _tarefa.texto = value,
+                        onSaved: (value) => _pais.school = value.toString(),
                         validator: (value) =>
                             value.isEmpty ? "Campo obrigatório" : null,
                       ),
@@ -185,7 +223,8 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
                         ),
-                        //onSaved: (value) => _tarefa.texto = value,
+                        onSaved: (value) =>
+                            _pais.addressSchool = value.toString(),
                         validator: (value) =>
                             value.isEmpty ? "Campo obrigatório" : null,
                       ),
@@ -198,7 +237,9 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           fontSize: 20,
                         ),
                       ),
+                      //1 (ida), 2 (volta) e 3 (ida/volta)
                       ListTile(
+                        autofocus: true,
                         title: const Text('Ida/volta'),
                         leading: Radio(
                           fillColor:
@@ -208,6 +249,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           onChanged: (trajeto value) {
                             setState(() {
                               _percurso = value;
+                              _pais.route = 3;
                             });
                           },
                         ),
@@ -222,6 +264,8 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           onChanged: (trajeto value) {
                             setState(() {
                               _percurso = value;
+                              _pais.route = 1;
+                              print(_pais.route.toString());
                             });
                           },
                         ),
@@ -236,6 +280,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                           onChanged: (trajeto value) {
                             setState(() {
                               _percurso = value;
+                              _pais.route = 2;
                             });
                           },
                         ),
@@ -245,7 +290,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                         height: 40,
                         child: TextButton(
                           onPressed: () {
-                            create(context);
+                            create(context, _pais);
                           },
                           child: Text(
                             "Cadastrar",

@@ -58,13 +58,6 @@ class _acesso extends State<acesso> {
       //início da tela
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         backgroundColor: Colors.yellow,
         title: Text(
           "Acesso Motorista",

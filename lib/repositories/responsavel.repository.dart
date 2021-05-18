@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import 'package:take_my_child/models/parents.model.dart';
 
 class ResponsavelRepository {
   Future<dynamic> verificarLogin(String login) async {
@@ -10,22 +13,20 @@ class ResponsavelRepository {
     return resposta.body;
   }
 
-  /*Future<bool> create(DriverModel motorista) async {
-    String url = 'https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista';
-    var response = await http.post( 
+  Future<dynamic> cadastrarAlunos(ParentsModel pais) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
+    String url =
+        'https://take-my-child-api.herokuapp.com/cadastrarresponsaveis';
+    print(jsonEncode(pais.toJson()));
+
+    var response = await http.post(
       url,
-      body: jsonEncode(contato.toJson()),
+      body: jsonEncode(pais.toJson()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    if (response.statusCode == 200) {
-      Contato contato = Contato.fromJson(jsonDecode(response.body));
-      contatos.add(contato);
-      notifyListeners();
-      return true;
-    }
-    return false;
-  }*/
-
+    return response.body;
+  }
 }

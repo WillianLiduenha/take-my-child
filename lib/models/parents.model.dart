@@ -6,7 +6,7 @@ class ParentsModel {
   UserModel user = new UserModel();
   String address;
   String codDriver;
-  String name;
+  String name_child;
   String school;
   String addressSchool;
   int route;
@@ -26,7 +26,7 @@ class ParentsModel {
     user = UserModel.fromJson(json);
     address = json['address'];
     codDriver = json['codDriver'];
-    name = json['name'];
+    name_child = json['name'];
     school = json['school'];
     addressSchool = json['addressSchool'];
     route = json['route'];
@@ -35,12 +35,12 @@ class ParentsModel {
   Map<String, dynamic> toJson() {
     return {
       "user": user.toJson(),
-      "address": address,
+      "endereco": address,
       "codDriver": codDriver,
-      "name": name,
-      "school": school,
-      "addressSchool": addressSchool,
-      "route": route
+      "nome_aluno": name_child,
+      "escola": school,
+      "endereco_escola": addressSchool,
+      "trajeto": route
     };
   }
 }

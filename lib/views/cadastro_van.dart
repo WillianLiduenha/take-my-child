@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
@@ -43,13 +45,10 @@ class _Cadastro_van extends State<cadastro_van> {
       if (resposta.toString() != "") {
         var msg = await mensagem(context, "Cadastro efetuado com sucesso");
         print(resposta);
-        Navigator.of(context).pushNamed('/paginainicialmotorista',
-            arguments: _motorista.user.login);
+        Navigator.of(context).pushNamed('/acesso');
       } else {
         mensagem(context, "Erro ao executar o cadastro");
       }
-
-      //Navigator.of(context).pushNamed('/paginainicial');
     }
   }
 

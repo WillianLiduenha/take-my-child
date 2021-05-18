@@ -193,7 +193,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             enabledBorder: OutlineInputBorder(),
                             counterText: "",
                           ),
-                          onSaved: (value) => _responsaveis.name = value,
+                          onSaved: (value) => _responsaveis.user.name = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -250,6 +250,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                           onSaved: (value) => _responsaveis.address = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
+                        ),
+                        SizedBox(
+                          height: 5,
                         ),
                         TextFormField(
                           maxLength: 11,
