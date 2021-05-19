@@ -22,13 +22,13 @@ class UserModel {
   UserModel();
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    login = json['login'];
-    password = json['password'];
+    id = json['uuid'];
+    name = json['nome_usuario'];
+    login = json['usuario_login'];
+    password = json['usuario_password'];
     cpf = json['cpf'];
     rg = json['rg'];
-    telephone = json['telephone'];
+    telephone = json['telefone'];
   }
 
   Map<String, dynamic> toJson() {

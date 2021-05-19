@@ -23,10 +23,10 @@ class DriverModel {
   DriverModel.fromJson(Map<String, dynamic> json) {
     user = UserModel.fromJson(json);
     cnh = json['cnh'];
-    plate_van = json['plate_van'];
-    model_van = json['model_van'];
-    color_van = json['color_van'];
-    brand_van = json['brand_van'];
+    plate_van = json['placa_van'];
+    model_van = json['modelo_van'];
+    color_van = json['cor_van'];
+    brand_van = json['marca_van'];
   }
 
   Map<String, dynamic> toJson() {

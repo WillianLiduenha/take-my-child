@@ -186,12 +186,14 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                         height: 15,
                       ),
                       TextFormField(
+                        maxLength: 50,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           labelText: "Nome do aluno",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) => _pais.name_child = value.toString(),
                         validator: (value) =>
@@ -201,12 +203,14 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 20,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           labelText: "Escola",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) => _pais.school = value.toString(),
                         validator: (value) =>
@@ -216,12 +220,14 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 50,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           labelText: "Endereço da escola",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _pais.addressSchool = value.toString(),

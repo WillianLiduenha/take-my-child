@@ -8,6 +8,13 @@ class editar_motorista extends StatefulWidget {
 
 class _Editar_motorista extends State<editar_motorista> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  initState() {
+    super.initState();
+    //this.lista = repository.read();
+  }
+
   next(BuildContext context) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -148,6 +155,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 15,
                         ),
                         TextFormField(
+                          //initialValue: item.texto.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Nome Completo",
