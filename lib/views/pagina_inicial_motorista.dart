@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:take_my_child/models/driver.model.dart';
+import 'package:take_my_child/repositories/motorista.repository.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
   @override
@@ -8,7 +10,15 @@ class pagina_inicial_motorista extends StatefulWidget {
 
 class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
-  SpeedDial controllerSpeedDial() {
+  DriverModel _motorista = DriverModel();
+  MotoristaRepository repository = MotoristaRepository();
+
+  Future<DriverModel> readMotorista(String login) async {
+    _motorista = await repository.lerMotorista(login);
+    print(_motorista.user.name);
+  }
+
+  SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       backgroundColor: Colors.yellow,
@@ -24,8 +34,10 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
           label: "Editar cadastro motorista",
           backgroundColor: Colors.yellow,
           labelBackgroundColor: Colors.white,
-          onTap: () {
-            Navigator.of(context).pushNamed('/editarmotorista');
+          onTap: () async {
+            await readMotorista(login);
+            Navigator.of(context)
+                .pushNamed('/editarmotorista', arguments: _motorista);
             setState(() {});
           },
         ),
@@ -122,7 +134,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
           ]),
         ),
       ),
-      floatingActionButton: controllerSpeedDial(),
+      floatingActionButton: controllerSpeedDial(login),
     );
   }
 }

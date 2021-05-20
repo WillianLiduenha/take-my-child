@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:take_my_child/main.dart';
+import 'package:take_my_child/models/driver.model.dart';
+import 'package:take_my_child/repositories/motorista.repository.dart';
 
 class editar_motorista extends StatefulWidget {
   @override
@@ -7,24 +9,21 @@ class editar_motorista extends StatefulWidget {
 }
 
 class _Editar_motorista extends State<editar_motorista> {
+  DriverModel _motorista = DriverModel();
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  initState() {
-    super.initState();
-    //this.lista = repository.read();
-  }
 
   next(BuildContext context) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/editarvan');
+      Navigator.of(context).pushNamed('/editarvan', arguments: _motorista);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    _motorista = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -155,7 +154,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 15,
                         ),
                         TextFormField(
-                          //initialValue: item.texto.toString(),
+                          initialValue: _motorista.user.name.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Nome Completo",
@@ -171,6 +170,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.user.cpf.toString(),
                           cursorColor: Colors.black,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -187,6 +187,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.user.rg.toString(),
                           cursorColor: Colors.black,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -203,6 +204,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.cnh.toString(),
                           cursorColor: Colors.black,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -219,6 +221,8 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 5,
                         ),
                         TextFormField(
+                          enabled: false,
+                          initialValue: _motorista.user.login.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Login",
@@ -234,6 +238,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.user.password.toString(),
                           obscureText: true,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
