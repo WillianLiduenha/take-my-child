@@ -28,6 +28,15 @@ class _EditarPais extends State<editar_pais> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
+                actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            color: Colors.black,
+            onPressed: () {
+              //exclusão
+            },
+          ),
+        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Pais",

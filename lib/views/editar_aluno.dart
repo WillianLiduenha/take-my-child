@@ -31,6 +31,15 @@ class _Editar_Aluno extends State<editar_aluno> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
+                actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            color: Colors.black,
+            onPressed: () {
+              //exclusão
+            },
+          ),
+        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Aluno",

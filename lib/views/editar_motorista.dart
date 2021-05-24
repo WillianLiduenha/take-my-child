@@ -32,8 +32,18 @@ class _Editar_motorista extends State<editar_motorista> {
             Icons.arrow_back,
             color: Colors.black,
           ),
+          
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            color: Colors.black,
+            onPressed: () {
+              //exclusão
+            },
+          ),
+        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Motorista",
