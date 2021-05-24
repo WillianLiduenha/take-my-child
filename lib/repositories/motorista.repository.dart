@@ -45,4 +45,12 @@ class MotoristaRepository {
     //moto.map((objeto) => this._motorista = DriverModel.fromJson(objeto));
     return _motorista;
   }
+
+  Future<void> deletarMotorista(String uuid) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url =
+        "https://take-my-child-api.herokuapp.com/deletemotorista/$uuid";
+    var response = await http.delete(url);
+  }
 }

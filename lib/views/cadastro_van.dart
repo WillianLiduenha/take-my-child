@@ -78,6 +78,7 @@ class _Cadastro_van extends State<cadastro_van> {
       body: Container(
         width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Flexible(
               flex: 1,
