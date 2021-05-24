@@ -41,6 +41,7 @@ class MotoristaRepository {
     if (response.body != null || response.body != "") {
       _motorista = DriverModel.fromJson(jsonDecode(response.body));
       print(_motorista);
+      return _motorista;
     }
     return response.body;
   }
