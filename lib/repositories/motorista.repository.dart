@@ -32,17 +32,17 @@ class MotoristaRepository {
     );
   }
 
-  Future<dynamic> lerMotorista(String login) async {
-    var url = Uri.parse(
-        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");
-    //String url = "https://take-my-child-api.herokuapp.com/readmotorista/$login";
+  Future<DriverModel> lerMotorista(String login) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url = "https://take-my-child-api.herokuapp.com/readmotorista/$login";
     var response = await http.get(url);
+    print(response.body);
 
-    if (response.body != null || response.body != "") {
-      _motorista = DriverModel.fromJson(jsonDecode(response.body));
-      print(_motorista);
-      return _motorista;
-    }
-    return response.body;
+    var moto = jsonDecode(response.body);
+    _motorista = DriverModel.fromJson(moto[0]);
+    print(_motorista.user.cpf);
+    //moto.map((objeto) => this._motorista = DriverModel.fromJson(objeto));
+    return _motorista;
   }
 }

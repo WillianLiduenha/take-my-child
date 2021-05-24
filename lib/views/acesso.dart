@@ -57,13 +57,17 @@ class _acesso extends State<acesso> {
     return Scaffold(
       //início da tela
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.yellow,
+            ),
+            onPressed: () => {}),
         elevation: 0,
         backgroundColor: Colors.yellow,
         title: Text(
           "Acesso Motorista",
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 25),
         ),
         centerTitle: false,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/driver.model.dart';
 
 class editar_van extends StatefulWidget {
   @override
@@ -6,6 +7,7 @@ class editar_van extends StatefulWidget {
 }
 
 class _Editar_van extends State<editar_van> {
+  DriverModel _motorista = DriverModel();
   final _formKey = GlobalKey<FormState>();
 
   create(BuildContext context) {
@@ -18,6 +20,7 @@ class _Editar_van extends State<editar_van> {
 
   @override
   Widget build(BuildContext context) {
+    _motorista = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -147,6 +150,7 @@ class _Editar_van extends State<editar_van> {
                           height: 15,
                         ),
                         TextFormField(
+                          initialValue: _motorista.plate_van,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Placa",
@@ -162,6 +166,7 @@ class _Editar_van extends State<editar_van> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.model_van,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Modelo",
@@ -177,6 +182,7 @@ class _Editar_van extends State<editar_van> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.color_van,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Cor",
@@ -192,6 +198,7 @@ class _Editar_van extends State<editar_van> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _motorista.brand_van,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Marca",
@@ -212,7 +219,7 @@ class _Editar_van extends State<editar_van> {
                               create(context);
                             },
                             child: Text(
-                              "Cadastrar",
+                              "Atualizar",
                               style: TextStyle(
                                 fontSize: 15,
                               ),
