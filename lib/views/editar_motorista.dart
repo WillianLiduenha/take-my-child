@@ -10,6 +10,7 @@ class editar_motorista extends StatefulWidget {
 
 class _Editar_motorista extends State<editar_motorista> {
   DriverModel _motorista = DriverModel();
+  
   final _formKey = GlobalKey<FormState>();
 
   next(BuildContext context) {

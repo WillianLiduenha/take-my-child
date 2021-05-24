@@ -58,7 +58,6 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
   @override
   Widget build(BuildContext context) {
     ParentsModel _pais = ModalRoute.of(context).settings.arguments;
-    _pais.route = 3;
     return Scaffold(
       //início da tela
       appBar: AppBar(

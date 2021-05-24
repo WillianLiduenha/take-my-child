@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class pagina_inicial_pais extends StatefulWidget {
   @override
@@ -8,7 +10,20 @@ class pagina_inicial_pais extends StatefulWidget {
 
 class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   final _formKey = GlobalKey<FormState>();
-  SpeedDial controllerSpeedDial() {
+
+
+ ParentsModel _responsaveis = new ParentsModel();
+  ResponsavelRepository repository = ResponsavelRepository();
+
+  Future<ParentsModel> readAluno(String login) async {
+    _responsaveis = await repository.lerAluno(login);
+    
+    print(_responsaveis);
+  }
+
+
+
+  SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       backgroundColor: Colors.yellow,
@@ -24,8 +39,9 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           label: "Editar cadastro responsável",
           backgroundColor: Colors.yellow,
           labelBackgroundColor: Colors.white,
-          onTap: () {
-            Navigator.of(context).pushNamed('/editarpais');
+          onTap: () async{
+            await readAluno(login);
+            Navigator.of(context).pushNamed('/editarpais', arguments: _responsaveis);
             setState(() {});
           },
         ),
@@ -114,7 +130,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           ]),
         ),
       ),
-      floatingActionButton: controllerSpeedDial(),
+      floatingActionButton: controllerSpeedDial(login),
     );
   }
 }

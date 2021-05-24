@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
 
 class editar_pais extends StatefulWidget {
   @override
@@ -6,18 +7,22 @@ class editar_pais extends StatefulWidget {
 }
 
 class _EditarPais extends State<editar_pais> {
+  ParentsModel _responsaveis = new ParentsModel();
+  
   final _formKey = GlobalKey<FormState>();
+
   next(BuildContext context) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/editaraluno');
+      Navigator.of(context).pushNamed('/editaraluno', arguments: _responsaveis);
     }
   }
 
 
   @override
   Widget build(BuildContext context) {
+    _responsaveis = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -160,6 +165,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 15,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.name.toString(),
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               labelText: "Nome Completo",
@@ -175,6 +181,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.cpf.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -191,6 +198,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.rg.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -207,6 +215,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.address.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
@@ -220,6 +229,7 @@ class _EditarPais extends State<editar_pais> {
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.telephone.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -236,6 +246,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.login,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               labelText: "Login",
@@ -251,6 +262,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            initialValue: _responsaveis.user.password.toString(),
                             obscureText: true,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(

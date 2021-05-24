@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
 
 class editar_aluno extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ enum trajeto { idaVolta, ida, volta }
 trajeto _percurso = trajeto.idaVolta;
 
 class _Editar_Aluno extends State<editar_aluno> {
+  ParentsModel _responsaveis = new ParentsModel();
+
   final _formKey = GlobalKey<FormState>();
   create(BuildContext context) {
     if (_formKey.currentState.validate()) {
@@ -21,6 +24,8 @@ class _Editar_Aluno extends State<editar_aluno> {
 
   @override
   Widget build(BuildContext context) {
+    _responsaveis = ModalRoute.of(context).settings.arguments;
+    print(_responsaveis.route.toString());
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -31,7 +36,7 @@ class _Editar_Aluno extends State<editar_aluno> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-                actions: [
+        actions: [
           IconButton(
             icon: const Icon(Icons.delete),
             color: Colors.black,
@@ -75,9 +80,9 @@ class _Editar_Aluno extends State<editar_aluno> {
                                   width: 45,
                                   height: 45,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1000),
-                                      color:
-                                          Color.fromRGBO(240, 230, 140, 0.7),),
+                                    borderRadius: BorderRadius.circular(1000),
+                                    color: Color.fromRGBO(240, 230, 140, 0.7),
+                                  ),
                                   child: TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -159,6 +164,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 15,
                         ),
                         TextFormField(
+                          initialValue: _responsaveis.name_child.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Nome",
@@ -174,6 +180,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _responsaveis.school.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Escola",
@@ -189,6 +196,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 5,
                         ),
                         TextFormField(
+                          initialValue: _responsaveis.addressSchool.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: "Endereço da escola",
@@ -203,11 +211,15 @@ class _Editar_Aluno extends State<editar_aluno> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text("Trajeto / Percurso", style: TextStyle(
-                          fontSize: 20,
-
-                        ),),
+                        Text(
+                          "Trajeto / Percurso",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        //1 (ida), 2 (volta) e 3 (ida/volta)
                         ListTile(
+                          autofocus:  _responsaveis.route == 3 ? true  : false,
                           title: const Text('Ida/volta'),
                           leading: Radio(
                             fillColor:
@@ -217,11 +229,13 @@ class _Editar_Aluno extends State<editar_aluno> {
                             onChanged: (trajeto value) {
                               setState(() {
                                 _percurso = value;
+                                _responsaveis.route = 3;
                               });
                             },
                           ),
                         ),
                         ListTile(
+                          autofocus:  _responsaveis.route == 1 ? true  : false,
                           title: const Text('Ida'),
                           leading: Radio(
                             fillColor:
@@ -231,11 +245,13 @@ class _Editar_Aluno extends State<editar_aluno> {
                             onChanged: (trajeto value) {
                               setState(() {
                                 _percurso = value;
+                                _responsaveis.route = 1;
                               });
                             },
                           ),
                         ),
                         ListTile(
+                          autofocus:  _responsaveis.route == 2 ? true  : false,
                           title: const Text('Volta'),
                           leading: Radio(
                             fillColor:
@@ -245,6 +261,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             onChanged: (trajeto value) {
                               setState(() {
                                 _percurso = value;
+                                _responsaveis.route = 2;
                               });
                             },
                           ),

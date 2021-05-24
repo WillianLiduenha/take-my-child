@@ -17,7 +17,7 @@ class _Editar_van extends State<editar_van> {
       Navigator.of(context).pushNamed('/paginainicial');
     }
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     _motorista = ModalRoute.of(context).settings.arguments;
