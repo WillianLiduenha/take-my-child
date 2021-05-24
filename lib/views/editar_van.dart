@@ -14,10 +14,11 @@ class _Editar_van extends State<editar_van> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/paginainicial');
+      Navigator.of(context).pushNamed('/paginainicialmotorista',
+          arguments: _motorista.user.login);
     }
   }
- 
+
   @override
   Widget build(BuildContext context) {
     _motorista = ModalRoute.of(context).settings.arguments;
@@ -29,9 +30,11 @@ class _Editar_van extends State<editar_van> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(
+            ArgumentError.value(_motorista),
+          ),
         ),
-                actions: [
+        actions: [
           IconButton(
             icon: const Icon(Icons.delete),
             color: Colors.black,
@@ -80,7 +83,8 @@ class _Editar_van extends State<editar_van> {
                                           Color.fromRGBO(240, 230, 140, 0.7)),
                                   child: TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      Navigator.of(context)
+                                          .pop(ArgumentError.value(_motorista));
                                     },
                                     child: Text(
                                       "1",
@@ -167,7 +171,8 @@ class _Editar_van extends State<editar_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) =>
+                              _motorista.plate_van = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -183,7 +188,8 @@ class _Editar_van extends State<editar_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) =>
+                              _motorista.model_van = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -199,7 +205,8 @@ class _Editar_van extends State<editar_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) =>
+                              _motorista.color_van = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -215,7 +222,8 @@ class _Editar_van extends State<editar_van> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) =>
+                              _motorista.brand_van = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
