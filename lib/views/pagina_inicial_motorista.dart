@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
+import 'package:take_my_child/views/vincular_motorista.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
   @override
@@ -16,6 +17,12 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
     print(_motorista.user.name);
+  }
+
+  Future<void> vincularMotorista() async {
+    var resposta = await repository.vincularMotorista(
+        "2459bb6e-420d-4824-a006-752043eafbac", "joacale1");
+    print(resposta);
   }
 
   SpeedDial controllerSpeedDial(String login) {
