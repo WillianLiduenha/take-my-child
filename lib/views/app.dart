@@ -41,7 +41,7 @@ class App extends StatelessWidget {
         '/vincularmotorista': (context) => vincular_motorista(),
       },
 
-      initialRoute: '/',
+      initialRoute: '/meusalunos',
     );
     // o home vai indicar qual é a tela inicial da aplicação
   }

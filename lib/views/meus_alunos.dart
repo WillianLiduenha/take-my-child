@@ -115,13 +115,93 @@ class _MeusAlunosState extends State<MeusAlunos> {
           Flexible(
             flex: 9,
             child: ListView.builder(
- itemCount: 3,
+              itemCount: 15,
               itemBuilder: (_, indice) {
-                return Card(
-                  
-                  child: ListTile(
-                    title: Text("teste"),
-                  ),
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Card(
+                        color: Color.fromARGB(255, 255, 255, 224),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: ListTile(
+                            title: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Nome do Aluno:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Will",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text("Nome Responsável:"),
+                                        Text("Aline"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Telefone contato:"),
+                                        Text("12345678912"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Endereço:"),
+                                        Text("Endereço endereço"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("Escola:"),
+                                        Text("Fatec"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      height: 2,
+                      width: double.infinity,
+                      color: Colors.black,
+                    ),
+                    SizedBox(height: 5),
+                  ],
                 );
               },
             ), // criar a lista com os dados do read();
