@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:take_my_child/models/driver.model.dart';
+import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
@@ -11,12 +12,18 @@ class pagina_inicial_motorista extends StatefulWidget {
 class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
   DriverModel _motorista = DriverModel();
-  MotoristaRepository repository = MotoristaRepository();
+   MotoristaRepository repository = MotoristaRepository();
+ // ParentsModel _responsavel = ParentsModel();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
     print(_motorista.user.name);
   }
+
+  // Future<DriverModel> listagemAluno(String login) async {
+  //   _responsavel = await repository.listagemAluno(login);
+  //   print(_motorista.user.name);
+  // }
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
@@ -49,9 +56,14 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
           label: "Meus alunos",
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
-          onTap: () {
-            setState(() {});
-          },
+          // onTap: () async {
+          //   await listagemAluno(login);
+
+          //   Navigator.of(context)
+          //       .pushNamed('/meusalunos', arguments: _responsavel);
+
+          //   setState(() {});
+          // },
         ),
       ],
     );

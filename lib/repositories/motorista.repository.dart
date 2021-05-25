@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:take_my_child/models/driver.model.dart';
+import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/models/user.model.dart';
 
 class MotoristaRepository {
   DriverModel _motorista = DriverModel();
+  ParentsModel _responsavel = ParentsModel();
 
   Future<dynamic> verificarLogin(String login) async {
     /*var url = Uri.parse(
@@ -70,5 +72,19 @@ class MotoristaRepository {
     String url =
         "https://take-my-child-api.herokuapp.com/deletemotorista/$uuid";
     var response = await http.delete(url);
+  }
+
+  Future<ParentsModel> listagemAluno(String uuid) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url = "https://take-my-child-api.herokuapp.com/listagemaluno/$uuid";
+
+    var resposta = await http.get(url);
+    print(resposta.body);
+
+    var alunos = jsonDecode(resposta.body);
+    _responsavel = ParentsModel.fromJson(alunos[0]);
+   // alunos.map((objeto) => this._responsavel = ParentsModel.fromJson(alunos[0]));
+    return _responsavel;
   }
 }
