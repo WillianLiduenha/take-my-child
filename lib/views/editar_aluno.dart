@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class editar_aluno extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ trajeto _percurso = trajeto.idaVolta;
 
 class _Editar_Aluno extends State<editar_aluno> {
   ParentsModel _responsaveis = new ParentsModel();
+  ResponsavelRepository repository = new ResponsavelRepository();
+
 
   final _formKey = GlobalKey<FormState>();
   create(BuildContext context) {
@@ -22,13 +25,89 @@ class _Editar_Aluno extends State<editar_aluno> {
     }
   }
 
-  
+  bool respostaMSG = false;
+  Future mensagemExclusao(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Deseja exluir seu usuário?"),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text("CANCELAR"),
+            ),
+            FlatButton(
+              onPressed: () async {
+                respostaMSG = await true;
+                Navigator.of(context).pop(true);
+              },
+              child: Text("SIM"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> mensagemConfirmacao(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  delete(BuildContext context, ParentsModel _responsavel) async {
+    await repository.deletarAluno(_responsavel.user.id);
+  }
+
+  alter(BuildContext context) async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      print(_responsaveis.user.name);
+
+      await repository.alterarMotorista(_responsaveis);
+
+      bool msg =
+          await mensagemConfirmacao(context, "Alteração efetuada com sucesso");
+
+      if (msg == true) {
+        Navigator.of(context).pushNamed('/paginainicialpais',
+            arguments: _responsaveis.user.login);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     _responsaveis = ModalRoute.of(context).settings.arguments;
     print(_responsaveis.route.toString());
-    _percurso = _responsaveis.route != 3 && _responsaveis.route == 2 ? trajeto.volta : trajeto.ida;
+    _percurso = _responsaveis.route != 3 && _responsaveis.route == 2
+        ? trajeto.volta
+        : trajeto.ida;
 
     return Scaffold(
       //início da tela
@@ -40,15 +119,6 @@ class _Editar_Aluno extends State<editar_aluno> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.black,
-            onPressed: () {
-              //exclusão
-            },
-          ),
-        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Aluno",
@@ -176,7 +246,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _responsaveis.name_child = value.toString(),
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -192,7 +262,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _responsaveis.school = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -208,7 +278,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
                           ),
-                          //onSaved: (value) => _tarefa.texto = value,
+                          onSaved: (value) => _responsaveis.addressSchool = value,
                           validator: (value) =>
                               value.isEmpty ? "Campo obrigatório" : null,
                         ),
@@ -221,7 +291,6 @@ class _Editar_Aluno extends State<editar_aluno> {
                             fontSize: 20,
                           ),
                         ),
-                        
                         ListTile(
                           title: const Text('Ida/volta'),
                           leading: Radio(
@@ -267,16 +336,15 @@ class _Editar_Aluno extends State<editar_aluno> {
                             },
                           ),
                         ),
-
                         Container(
                           width: double.infinity,
                           height: 40,
                           child: TextButton(
                             onPressed: () {
-                              create(context);
+                              alter(context);
                             },
                             child: Text(
-                              "Cadastrar",
+                              "Atualizar",
                               style: TextStyle(
                                 fontSize: 15,
                               ),
@@ -286,6 +354,36 @@ class _Editar_Aluno extends State<editar_aluno> {
                                   Colors.black),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.yellow),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 40,
+                          child: TextButton(
+                            onPressed: () async {
+                              await mensagemExclusao(context);
+                              if (respostaMSG == true) {
+                                await delete(context, _responsaveis);
+                                bool resposta = await mensagemConfirmacao(
+                                    context, "Cadastro excluído com sucesso!!");
+                                if (resposta) {
+                                  Navigator.of(context).pushNamed('/acesso');
+                                }
+                              }
+                            },
+                            child: Text(
+                              "Deletar",
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromRGBO(240, 230, 140, 0.7),
+                              ),
                             ),
                           ),
                         ),

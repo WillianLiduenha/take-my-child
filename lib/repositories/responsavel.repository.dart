@@ -45,4 +45,30 @@ class ResponsavelRepository {
     //moto.map((objeto) => this._motorista = DriverModel.fromJson(objeto));
     return _responsaveis;
   }
+
+  Future<void> deletarAluno(String uuid) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url =
+        "https://take-my-child-api.herokuapp.com/deletealuno/$uuid";
+    var response = await http.delete(url);
+  }
+
+  Future<void> alterarMotorista(ParentsModel aluno) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
+    String uuid = aluno.user.id;
+    print(uuid);
+    String url =
+        "https://take-my-child-api.herokuapp.com/updatealuno/$uuid";
+    print(jsonEncode(aluno.toJson()));
+
+    var response = await http.put(
+      url,
+      body: jsonEncode(aluno.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
 }
