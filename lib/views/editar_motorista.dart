@@ -192,6 +192,7 @@ class _Editar_motorista extends State<editar_motorista> {
                         height: 15,
                       ),
                       TextFormField(
+                        maxLength: 50,
                         initialValue: _motorista.user.name.toString(),
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -199,6 +200,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                           counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.user.name = value.toString(),
@@ -209,6 +211,7 @@ class _Editar_motorista extends State<editar_motorista> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 11,
                         initialValue: _motorista.user.cpf.toString(),
                         cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
@@ -217,6 +220,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.user.cpf = value.toString(),
@@ -227,6 +231,7 @@ class _Editar_motorista extends State<editar_motorista> {
                         height: 5,
                       ),
                       TextFormField(
+                         maxLength: 9,
                         initialValue: _motorista.user.rg.toString(),
                         cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
@@ -235,6 +240,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.user.rg = value.toString(),
@@ -245,6 +251,7 @@ class _Editar_motorista extends State<editar_motorista> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 11,
                         initialValue: _motorista.cnh.toString(),
                         cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
@@ -253,6 +260,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) => _motorista.cnh = value.toString(),
                         validator: (value) =>
@@ -262,7 +270,28 @@ class _Editar_motorista extends State<editar_motorista> {
                         height: 5,
                       ),
                       TextFormField(
+                        initialValue: _motorista.user.telephone.toString(),
+                        cursorColor: Colors.black,
+                        maxLength: 11,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Telefone",
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusedBorder: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(),
+                          counterText: "",
+                        ),
+                        onSaved: (value) =>
+                            _motorista.user.telephone = value.toString(),
+                        validator: (value) =>
+                            value.isEmpty ? "Campo obrigatório" : null,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormField(
                         //enabled: false,
+                        maxLength: 25,
                         initialValue: _motorista.user.login.toString(),
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -270,6 +299,7 @@ class _Editar_motorista extends State<editar_motorista> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.user.login = value.toString(),
@@ -282,12 +312,14 @@ class _Editar_motorista extends State<editar_motorista> {
                       TextFormField(
                         initialValue: _motorista.user.password.toString(),
                         obscureText: true,
+                        maxLength: 20,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           labelText: "Senha",
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.user.password = value.toString(),

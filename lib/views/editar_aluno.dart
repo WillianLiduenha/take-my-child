@@ -238,13 +238,16 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 15,
                         ),
                         TextFormField(
+                          maxLength: 50,
+                          
                           initialValue: _responsaveis.name_child.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
-                            labelText: "Nome",
+                            labelText: "Nome do aluno",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
+                            counterText: "",
                           ),
                           onSaved: (value) => _responsaveis.name_child = value.toString(),
                           validator: (value) =>
@@ -254,6 +257,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 5,
                         ),
                         TextFormField(
+                           maxLength: 20,
                           initialValue: _responsaveis.school.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
@@ -261,6 +265,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
+                            counterText: "",
                           ),
                           onSaved: (value) => _responsaveis.school = value,
                           validator: (value) =>
@@ -270,6 +275,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                           height: 5,
                         ),
                         TextFormField(
+                           maxLength: 50,
                           initialValue: _responsaveis.addressSchool.toString(),
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
@@ -277,6 +283,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: OutlineInputBorder(),
                             enabledBorder: OutlineInputBorder(),
+                            counterText: "",
                           ),
                           onSaved: (value) => _responsaveis.addressSchool = value,
                           validator: (value) =>
