@@ -74,6 +74,25 @@ class MotoristaRepository {
     var response = await http.delete(url);
   }
 
+  Future<dynamic> vincularMotorista(
+      String uuid_aluno, String login_motorista) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url = 'https://take-my-child-api.herokuapp.com/updatecodmotorista';
+    var json_body = jsonEncode(uuid_aluno) + jsonEncode(login_motorista);
+    print(json_body);
+
+    var response = await http.put(
+      url,
+      body: jsonEncode(json_body),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    return response.body;
+  }
+
   Future<ParentsModel> listagemAluno(String uuid) async {
     /*var url = Uri.parse(
         "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
@@ -83,10 +102,9 @@ class MotoristaRepository {
     print(resposta.body);
 
     var alunos = jsonDecode(resposta.body);
-   // _responsavel = ParentsModel.fromJson(alunos[0]);
+    // _responsavel = ParentsModel.fromJson(alunos[0]);
     alunos.map((objeto) => this._responsavel = ParentsModel.fromJson(objeto));
-    
+
     return _responsavel;
   }
-
 }
