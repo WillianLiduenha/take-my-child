@@ -10,20 +10,60 @@ class editar_motorista extends StatefulWidget {
 
 class _Editar_motorista extends State<editar_motorista> {
   DriverModel _motorista = DriverModel();
+  MotoristaRepository repository = MotoristaRepository();
+  String loginInicial;
 
   final _formKey = GlobalKey<FormState>();
 
-  next(BuildContext context) {
+  Future mensagem(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Login informado já existe no sistema"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  next(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/editarvan', arguments: _motorista);
+      print(_motorista.user.name);
+
+      if (loginInicial != _motorista.user.login) {
+        var resposta = await repository.verificarLogin(_motorista.user.login);
+        print(resposta);
+
+        if (resposta != "") {
+          mensagem(context);
+        } else {
+          Navigator.of(context).pushNamed('/editarvan', arguments: _motorista);
+        }
+      } else {
+        Navigator.of(context).pushNamed('/editarvan', arguments: _motorista);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     _motorista = ModalRoute.of(context).settings.arguments;
+    loginInicial = _motorista.user.login.toString();
 
     return Scaffold(
       //início da tela
@@ -35,15 +75,6 @@ class _Editar_motorista extends State<editar_motorista> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.black,
-            onPressed: () {
-              //exclusão
-            },
-          ),
-        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Motorista",

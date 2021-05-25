@@ -46,6 +46,24 @@ class MotoristaRepository {
     return _motorista;
   }
 
+  Future<void> alterarMotorista(DriverModel motorista) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
+    String uuid = motorista.user.id;
+    print(uuid);
+    String url =
+        "https://take-my-child-api.herokuapp.com/updatemotorista/$uuid";
+    print(jsonEncode(motorista.toJson()));
+
+    var response = await http.put(
+      url,
+      body: jsonEncode(motorista.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
+
   Future<void> deletarMotorista(String uuid) async {
     /*var url = Uri.parse(
         "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/

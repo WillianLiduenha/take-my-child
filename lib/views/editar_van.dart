@@ -70,12 +70,21 @@ class _Editar_van extends State<editar_van> {
     await repository.deletarMotorista(_motorista.user.id);
   }
 
-  create(BuildContext context) {
+  alter(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      /*Navigator.of(context).pushNamed('/paginainicialmotorista',
-          arguments: _motorista.user.login);*/
+      print(_motorista.user.name);
+
+      await repository.alterarMotorista(_motorista);
+
+      bool msg =
+          await mensagemConfirmacao(context, "Alteração efetuada com sucesso");
+
+      if (msg == true) {
+        Navigator.of(context).pushNamed('/paginainicialmotorista',
+            arguments: _motorista.user.login);
+      }
     }
   }
 
@@ -94,23 +103,6 @@ class _Editar_van extends State<editar_van> {
             ArgumentError.value(_motorista),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.black,
-            onPressed: () async {
-              await mensagemExclusao(context);
-              if (respostaMSG == true) {
-                await delete(context, _motorista);
-                bool resposta = await mensagemConfirmacao(
-                    context, "Cadastro excluído com sucesso!!");
-                if (resposta) {
-                  Navigator.of(context).pushNamed('/acesso');
-                }
-              }
-            },
-          ),
-        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Van",
@@ -299,7 +291,7 @@ class _Editar_van extends State<editar_van> {
                         height: 40,
                         child: TextButton(
                           onPressed: () {
-                            create(context);
+                            alter(context);
                           },
                           child: Text(
                             "Atualizar",
@@ -312,6 +304,37 @@ class _Editar_van extends State<editar_van> {
                                 MaterialStateProperty.all<Color>(Colors.black),
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.yellow),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        width: double.infinity,
+                        height: 40,
+                        child: TextButton(
+                          onPressed: () async {
+                            await mensagemExclusao(context);
+                            if (respostaMSG == true) {
+                              await delete(context, _motorista);
+                              bool resposta = await mensagemConfirmacao(
+                                  context, "Cadastro excluído com sucesso!!");
+                              if (resposta) {
+                                Navigator.of(context).pushNamed('/acesso');
+                              }
+                            }
+                          },
+                          child: Text(
+                            "Deletar",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromRGBO(240, 230, 140, 0.7),
+                            ),
                           ),
                         ),
                       ),

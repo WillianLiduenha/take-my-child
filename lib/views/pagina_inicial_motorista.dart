@@ -69,7 +69,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
             icon: const Icon(Icons.login_outlined),
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed('/acesso');
             },
           ),
         ],
