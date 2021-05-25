@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class editar_pais extends StatefulWidget {
   @override
@@ -8,21 +9,64 @@ class editar_pais extends StatefulWidget {
 
 class _EditarPais extends State<editar_pais> {
   ParentsModel _responsaveis = new ParentsModel();
-  
+  ResponsavelRepository repository = new ResponsavelRepository();
+
+  String loginInicial;
   final _formKey = GlobalKey<FormState>();
 
-  next(BuildContext context) {
+  Future mensagem(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Login informado já existe no sistema"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  next(BuildContext context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Navigator.of(context).pushNamed('/editaraluno', arguments: _responsaveis);
+      print(_responsaveis.user.name);
+
+      if (loginInicial != _responsaveis.user.login) {
+        var resposta =
+            await repository.verificarLogin(_responsaveis.user.login);
+        print(resposta);
+
+        if (resposta != "") {
+          mensagem(context);
+        } else {
+          Navigator.of(context)
+              .pushNamed('/editaraluno', arguments: _responsaveis);
+        }
+      } else {
+        Navigator.of(context)
+            .pushNamed('/editaraluno', arguments: _responsaveis);
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
     _responsaveis = ModalRoute.of(context).settings.arguments;
+    loginInicial = _responsaveis.user.login.toString();
+
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -33,15 +77,6 @@ class _EditarPais extends State<editar_pais> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-                actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            color: Colors.black,
-            onPressed: () {
-              //exclusão
-            },
-          ),
-        ],
         backgroundColor: Colors.yellow,
         title: Text(
           "Editar Pais",
@@ -78,7 +113,8 @@ class _EditarPais extends State<editar_pais> {
                                     width: 45,
                                     height: 45,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(1000),
+                                        borderRadius:
+                                            BorderRadius.circular(1000),
                                         color: Colors.yellow),
                                     child: TextButton(
                                       onPressed: () {},
@@ -144,8 +180,8 @@ class _EditarPais extends State<editar_pais> {
                       ),
                       Text(
                         "Responsável",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
                       ),
                     ],
                   ),
@@ -173,7 +209,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.name = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -190,7 +226,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.cpf = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -207,7 +243,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.rg = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -224,12 +260,13 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.address = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           TextFormField(
-                            initialValue: _responsaveis.user.telephone.toString(),
+                            initialValue:
+                                _responsaveis.user.telephone.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -238,7 +275,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.telephone = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -254,7 +291,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.login = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -262,7 +299,8 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
-                            initialValue: _responsaveis.user.password.toString(),
+                            initialValue:
+                                _responsaveis.user.password.toString(),
                             obscureText: true,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -271,7 +309,7 @@ class _EditarPais extends State<editar_pais> {
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
                             ),
-                            //onSaved: (value) => _tarefa.texto = value,
+                            onSaved: (value) => _responsaveis.user.password = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -290,10 +328,12 @@ class _EditarPais extends State<editar_pais> {
                                 ),
                               ),
                               style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.black),
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.yellow),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.yellow),
                               ),
                             ),
                           ),
