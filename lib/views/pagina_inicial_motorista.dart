@@ -13,26 +13,23 @@ class pagina_inicial_motorista extends StatefulWidget {
 class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
   DriverModel _motorista = DriverModel();
-   MotoristaRepository repository = MotoristaRepository();
- // ParentsModel _responsavel = ParentsModel();
+  MotoristaRepository repository = MotoristaRepository();
+  // ParentsModel _responsavel = ParentsModel();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
     print(_motorista.user.name);
   }
 
-<<<<<<< HEAD
   Future<void> vincularMotorista() async {
     var resposta = await repository.vincularMotorista(
         "2459bb6e-420d-4824-a006-752043eafbac", "joacale1");
     print(resposta);
   }
-=======
   // Future<DriverModel> listagemAluno(String login) async {
   //   _responsavel = await repository.listagemAluno(login);
   //   print(_motorista.user.name);
   // }
->>>>>>> eb5547e035815abfdbf69445c01736a8586ff643
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
