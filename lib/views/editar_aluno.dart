@@ -22,10 +22,14 @@ class _Editar_Aluno extends State<editar_aluno> {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     _responsaveis = ModalRoute.of(context).settings.arguments;
     print(_responsaveis.route.toString());
+    _percurso = _responsaveis.route != 3 && _responsaveis.route == 2 ? trajeto.volta : trajeto.ida;
+
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -217,9 +221,8 @@ class _Editar_Aluno extends State<editar_aluno> {
                             fontSize: 20,
                           ),
                         ),
-                        //1 (ida), 2 (volta) e 3 (ida/volta)
+                        
                         ListTile(
-                          autofocus:  _responsaveis.route == 3 ? true  : false,
                           title: const Text('Ida/volta'),
                           leading: Radio(
                             fillColor:
@@ -235,7 +238,6 @@ class _Editar_Aluno extends State<editar_aluno> {
                           ),
                         ),
                         ListTile(
-                          autofocus:  _responsaveis.route == 1 ? true  : false,
                           title: const Text('Ida'),
                           leading: Radio(
                             fillColor:
@@ -251,7 +253,6 @@ class _Editar_Aluno extends State<editar_aluno> {
                           ),
                         ),
                         ListTile(
-                          autofocus:  _responsaveis.route == 2 ? true  : false,
                           title: const Text('Volta'),
                           leading: Radio(
                             fillColor:
@@ -266,6 +267,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             },
                           ),
                         ),
+
                         Container(
                           width: double.infinity,
                           height: 40,
