@@ -102,7 +102,7 @@ class MotoristaRepository {
     return response.body;
   }
 
-  Future<ParentsModel> listagemAluno(String uuid) async {
+  Future<List<ParentsModel>> listagemAluno(String uuid) async {
     /*var url = Uri.parse(
         "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
     String url = "https://take-my-child-api.herokuapp.com/listagemalunos/$uuid";
@@ -110,10 +110,10 @@ class MotoristaRepository {
     var resposta = await http.get(url);
     print(resposta.body);
 
-    var alunos = jsonDecode(resposta.body);
-    _responsavel = ParentsModel.fromJson(alunos[0]);
-    // alunos.map((objeto) => this._responsavel = ParentsModel.fromJson(alunos[0]));
+    Iterable alunos = jsonDecode(resposta.body);
+    //_responsavel = ParentsModel.fromJson(alunos[0]);
+     var lista = alunos.map((objeto) => ParentsModel.fromJson(objeto));
 
-    return _responsavel;
+    return lista.toList();
   }
 }
