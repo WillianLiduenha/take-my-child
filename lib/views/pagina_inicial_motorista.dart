@@ -21,11 +21,6 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
     print(_motorista.user.name);
   }
 
-  Future<void> vincularMotorista() async {
-    var resposta = await repository.vincularMotorista(
-        "2459bb6e-420d-4824-a006-752043eafbac", "joacale1");
-    print(resposta);
-  }
   // Future<DriverModel> listagemAluno(String login) async {
   //   _responsavel = await repository.listagemAluno(login);
   //   print(_motorista.user.name);
