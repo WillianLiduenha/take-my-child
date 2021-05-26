@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
 
 class MeusAlunos extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class MeusAlunos extends StatefulWidget {
 }
 
 class _MeusAlunosState extends State<MeusAlunos> {
+  ParentsModel _responsaveis = new ParentsModel();
   // initState() {
   //   super.initState();
   //   this.tarefas = repository.read();
@@ -92,6 +94,8 @@ class _MeusAlunosState extends State<MeusAlunos> {
 
   @override
   Widget build(BuildContext context) {
+    _responsaveis = ModalRoute.of(context).settings.arguments;
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

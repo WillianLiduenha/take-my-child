@@ -364,6 +364,7 @@ class _Editar_Aluno extends State<editar_aluno> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 5),
                         Container(
                           width: double.infinity,
                           height: 40,

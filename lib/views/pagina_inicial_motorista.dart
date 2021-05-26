@@ -14,7 +14,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
   DriverModel _motorista = DriverModel();
   MotoristaRepository repository = MotoristaRepository();
-  // ParentsModel _responsavel = ParentsModel();
+  ParentsModel _responsavel = ParentsModel();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
@@ -26,10 +26,11 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
         "2459bb6e-420d-4824-a006-752043eafbac", "joacale1");
     print(resposta);
   }
-  // Future<DriverModel> listagemAluno(String login) async {
-  //   _responsavel = await repository.listagemAluno(login);
-  //   print(_motorista.user.name);
-  // }
+
+  Future<DriverModel> listagemAluno(String login) async {
+    _responsavel = await repository.listagemAluno(login);
+    print(_responsavel);
+  }
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
@@ -62,14 +63,15 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
           label: "Meus alunos",
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
-          // onTap: () async {
-          //   await listagemAluno(login);
+          onTap: () async {
+            await listagemAluno(login);
+            
 
-          //   Navigator.of(context)
-          //       .pushNamed('/meusalunos', arguments: _responsavel);
+            Navigator.of(context)
+                .pushNamed('/meusalunos', arguments: _responsavel);
 
-          //   setState(() {});
-          // },
+            setState(() {});
+          },
         ),
       ],
     );

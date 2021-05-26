@@ -96,7 +96,7 @@ class MotoristaRepository {
   Future<ParentsModel> listagemAluno(String uuid) async {
     /*var url = Uri.parse(
         "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
-    String url = "https://take-my-child-api.herokuapp.com/listagemaluno/$uuid";
+    String url = "https://take-my-child-api.herokuapp.com/listagemalunos/$uuid";
 
     var resposta = await http.get(url);
     print(resposta.body);
