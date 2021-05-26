@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/repositories/responsavel.repository.dart';
 
 class pagina_inicial_pais extends StatefulWidget {
@@ -11,17 +12,21 @@ class pagina_inicial_pais extends StatefulWidget {
 class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   final _formKey = GlobalKey<FormState>();
 
-
- ParentsModel _responsaveis = new ParentsModel();
+  ParentsModel _responsaveis = new ParentsModel();
   ResponsavelRepository repository = ResponsavelRepository();
+  MotoristaRepository motoristaRepository = MotoristaRepository();
 
   Future<ParentsModel> readAluno(String login) async {
     _responsaveis = await repository.lerAluno(login);
-    
+
     print(_responsaveis);
   }
 
-
+  Future<void> vincularMotorista() async {
+    var resposta = await motoristaRepository.vincularMotorista(
+        "2459bb6e-420d-4824-a006-752043eafbac", "juli");
+    print(resposta);
+  }
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
@@ -39,9 +44,10 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           label: "Editar cadastro responsável",
           backgroundColor: Colors.yellow,
           labelBackgroundColor: Colors.white,
-          onTap: () async{
+          onTap: () async {
             await readAluno(login);
-            Navigator.of(context).pushNamed('/editarpais', arguments: _responsaveis);
+            Navigator.of(context)
+                .pushNamed('/editarpais', arguments: _responsaveis);
             setState(() {});
           },
         ),
@@ -66,7 +72,9 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
           onTap: () {
-            setState(() {});
+            setState(() {
+              vincularMotorista();
+            });
           },
         ),
       ],
