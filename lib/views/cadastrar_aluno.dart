@@ -47,8 +47,7 @@ class _Cadastro_aluno extends State<cadastro_aluno> {
       if (resposta.toString() != "") {
         var msg = await mensagem(context, "Cadastro efetuado com sucesso");
         print(resposta);
-        Navigator.of(context).pushNamed('/paginainicialpais',
-            arguments: _responsavel.user.login);
+        Navigator.of(context).pushNamed('/acesso');
       } else {
         mensagem(context, "Erro ao executar o cadastro");
       }

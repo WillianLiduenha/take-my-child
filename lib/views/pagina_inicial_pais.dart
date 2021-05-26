@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:http/http.dart';
+import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/repositories/responsavel.repository.dart';
+
+class ReturnArguments {
+  ParentsModel responsaveis = ParentsModel();
+  DriverModel motorista = DriverModel();
+}
 
 class pagina_inicial_pais extends StatefulWidget {
   @override
@@ -13,6 +20,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   final _formKey = GlobalKey<FormState>();
 
   ParentsModel _responsaveis = new ParentsModel();
+  DriverModel _motorista = new DriverModel();
   ResponsavelRepository repository = ResponsavelRepository();
   MotoristaRepository motoristaRepository = MotoristaRepository();
 
@@ -22,11 +30,16 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
     print(_responsaveis);
   }
 
-  Future<void> vincularMotorista() async {
+  Future<DriverModel> readMotorista(String login) async {
+    _motorista = await motoristaRepository.lerMotorista(login);
+    print(_motorista.user.name);
+  }
+
+  /*Future<void> vincularMotorista() async {
     var resposta = await motoristaRepository.vincularMotorista(
         "2459bb6e-420d-4824-a006-752043eafbac", "juli");
     print(resposta);
-  }
+  }*/
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
@@ -71,10 +84,14 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           label: "Vincular ao motorista",
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
-          onTap: () {
-            setState(() {
-              vincularMotorista();
-            });
+          onTap: () async {
+            await readAluno(login);
+
+            //vincularMotorista();
+            ReturnArguments argumentos = new ReturnArguments();
+            argumentos.responsaveis = _responsaveis;
+            Navigator.of(context)
+                .pushNamed('/vincularmotorista', arguments: argumentos);
           },
         ),
       ],

@@ -211,7 +211,8 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.name = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.name = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -230,7 +231,8 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.cpf = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.cpf = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -249,7 +251,8 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.rg = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.rg = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -257,8 +260,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
-                             maxLength: 50,
-                             
+                            maxLength: 50,
                             initialValue: _responsaveis.address.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.text,
@@ -269,12 +271,16 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.address = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.address = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
+                          SizedBox(
+                            height: 5,
+                          ),
                           TextFormField(
-                             maxLength: 11,
+                            maxLength: 11,
                             initialValue:
                                 _responsaveis.user.telephone.toString(),
                             cursorColor: Colors.black,
@@ -286,7 +292,8 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.telephone = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.telephone = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -304,7 +311,8 @@ class _EditarPais extends State<editar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.login = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.login = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -312,7 +320,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
-                             maxLength: 20,
+                            maxLength: 20,
                             initialValue:
                                 _responsaveis.user.password.toString(),
                             obscureText: true,
@@ -322,9 +330,10 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
-                               counterText: "",
+                              counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.password = value.toString(),
+                            onSaved: (value) =>
+                                _responsaveis.user.password = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),

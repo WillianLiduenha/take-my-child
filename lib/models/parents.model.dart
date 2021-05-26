@@ -25,7 +25,7 @@ class ParentsModel {
   ParentsModel.fromJson(Map<String, dynamic> json) {
     user = UserModel.fromJson(json);
     address = json['endereco'];
-    codDriver = json['codDriver'];
+    codDriver = json['codigo_motorista'];
     name_child = json['nome_aluno'];
     school = json['escola'];
     addressSchool = json['endereco_escola'];
