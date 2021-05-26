@@ -14,17 +14,47 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
   DriverModel _motorista = DriverModel();
   MotoristaRepository repository = MotoristaRepository();
-  // ParentsModel _responsavel = ParentsModel();
+  List<ParentsModel> _responsavel = List<ParentsModel>();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
     print(_motorista.user.name);
   }
 
-  // Future<DriverModel> listagemAluno(String login) async {
-  //   _responsavel = await repository.listagemAluno(login);
-  //   print(_motorista.user.name);
-  // }
+  Future<void> vincularMotorista() async {
+    var resposta = await repository.vincularMotorista(
+        "2459bb6e-420d-4824-a006-752043eafbac", "joacale1");
+    print(resposta);
+  }
+
+  Future<DriverModel> listagemAluno(String login) async {
+    _responsavel = await repository.listagemAluno(login);
+    print(_motorista.user.name);
+  }
+
+  Future mensagem(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Sem alunos vinculados!"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
@@ -57,14 +87,17 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
           label: "Meus alunos",
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
-          // onTap: () async {
-          //   await listagemAluno(login);
+          onTap: () async {
+            await listagemAluno(login);
+            if (_responsavel.length != 0) {
+              Navigator.of(context)
+                  .pushNamed('/meusalunos', arguments: _responsavel);
+            } else {
+              mensagem(context);
+            }
 
-          //   Navigator.of(context)
-          //       .pushNamed('/meusalunos', arguments: _responsavel);
-
-          //   setState(() {});
-          // },
+            setState(() {});
+          },
         ),
       ],
     );

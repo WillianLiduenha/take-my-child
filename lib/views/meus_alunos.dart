@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:take_my_child/models/parents.model.dart';
 
 class MeusAlunos extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class MeusAlunos extends StatefulWidget {
 }
 
 class _MeusAlunosState extends State<MeusAlunos> {
+  List<ParentsModel> _responsaveis;
   // initState() {
   //   super.initState();
   //   this.tarefas = repository.read();
@@ -61,16 +63,6 @@ class _MeusAlunosState extends State<MeusAlunos> {
   //   }
   // }
 
-  // double total(List<Tarefa> tarefas) {
-  //   double totalzin = 0;
-  //   tarefas.forEach((element) {
-  //     element.ativo
-  //         ? totalzin += element.valor * element.qtd
-  //         : totalzin; // Linha desnecessária, poderia ser resolvido com um if apenas e não ternário
-  //   });
-  //   return totalzin;
-  // }
-
   // bool canEdit = false;
 
   // void ordenar(List<Tarefa> tarefa) {
@@ -89,9 +81,14 @@ class _MeusAlunosState extends State<MeusAlunos> {
   //     return a.finalizada ? 1 : -1; // EX.: ternário
   //   });
   // }
-
   @override
   Widget build(BuildContext context) {
+
+    _responsaveis = ModalRoute.of(context).settings.arguments;
+  
+
+    print(_responsaveis[0].name_child);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -115,8 +112,9 @@ class _MeusAlunosState extends State<MeusAlunos> {
           Flexible(
             flex: 9,
             child: ListView.builder(
-              itemCount: 15,
+              itemCount: _responsaveis.length,
               itemBuilder: (_, indice) {
+                ParentsModel _responsavel = _responsaveis[indice];
                 return Column(
                   children: [
                     Container(
@@ -132,14 +130,14 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                 Row(
                                   children: [
                                     Text(
-                                      "Nome do Aluno:",
+                                      "Nome do Aluno: ",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25,
                                       ),
                                     ),
                                     Text(
-                                      "Will",
+                                      _responsavel.name_child,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 25,
@@ -155,8 +153,8 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text("Nome Responsável:"),
-                                        Text("Aline"),
+                                        Text("Nome Responsável: "),
+                                        Text(_responsavel.user.name),
                                       ],
                                     ),
                                     SizedBox(
@@ -165,7 +163,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                     Row(
                                       children: [
                                         Text("Telefone contato:"),
-                                        Text("12345678912"),
+                                        Text(_responsavel.user.telephone),
                                       ],
                                     ),
                                     SizedBox(
@@ -174,7 +172,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                     Row(
                                       children: [
                                         Text("Endereço:"),
-                                        Text("Endereço endereço"),
+                                        Text(_responsavel.address),
                                       ],
                                     ),
                                     SizedBox(
@@ -182,8 +180,8 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                     ),
                                     Row(
                                       children: [
-                                        Text("Escola:"),
-                                        Text("Fatec"),
+                                        Text("Escola: "),
+                                        Text(_responsavel.school),
                                       ],
                                     ),
                                   ],
