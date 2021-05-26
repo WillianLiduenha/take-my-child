@@ -201,6 +201,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 15,
                           ),
                           TextFormField(
+                            maxLength: 50,
                             initialValue: _responsaveis.user.name.toString(),
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -208,6 +209,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.name = value.toString(),
                             validator: (value) =>
@@ -217,6 +219,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 11,
                             initialValue: _responsaveis.user.cpf.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
@@ -225,6 +228,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.cpf = value.toString(),
                             validator: (value) =>
@@ -234,6 +238,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 9,
                             initialValue: _responsaveis.user.rg.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
@@ -242,6 +247,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.rg = value.toString(),
                             validator: (value) =>
@@ -251,6 +257,8 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                             maxLength: 50,
+                             
                             initialValue: _responsaveis.address.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.text,
@@ -259,12 +267,14 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.address = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           TextFormField(
+                             maxLength: 11,
                             initialValue:
                                 _responsaveis.user.telephone.toString(),
                             cursorColor: Colors.black,
@@ -274,6 +284,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.telephone = value.toString(),
                             validator: (value) =>
@@ -283,6 +294,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                            maxLength: 25,
                             initialValue: _responsaveis.user.login,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -290,6 +302,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.login = value.toString(),
                             validator: (value) =>
@@ -299,6 +312,7 @@ class _EditarPais extends State<editar_pais> {
                             height: 5,
                           ),
                           TextFormField(
+                             maxLength: 20,
                             initialValue:
                                 _responsaveis.user.password.toString(),
                             obscureText: true,
@@ -308,6 +322,7 @@ class _EditarPais extends State<editar_pais> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
+                               counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.password = value.toString(),
                             validator: (value) =>

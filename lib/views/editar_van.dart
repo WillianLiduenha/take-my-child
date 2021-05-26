@@ -221,6 +221,7 @@ class _Editar_van extends State<editar_van> {
                         height: 15,
                       ),
                       TextFormField(
+                        maxLength: 7,
                         initialValue: _motorista.plate_van,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -228,6 +229,7 @@ class _Editar_van extends State<editar_van> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.plate_van = value.toString(),
@@ -238,6 +240,7 @@ class _Editar_van extends State<editar_van> {
                         height: 5,
                       ),
                       TextFormField(
+                         maxLength: 20,
                         initialValue: _motorista.model_van,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -245,6 +248,7 @@ class _Editar_van extends State<editar_van> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.model_van = value.toString(),
@@ -255,6 +259,7 @@ class _Editar_van extends State<editar_van> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 20,
                         initialValue: _motorista.color_van,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -262,6 +267,7 @@ class _Editar_van extends State<editar_van> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.color_van = value.toString(),
@@ -272,6 +278,7 @@ class _Editar_van extends State<editar_van> {
                         height: 5,
                       ),
                       TextFormField(
+                        maxLength: 20,
                         initialValue: _motorista.brand_van,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
@@ -279,6 +286,7 @@ class _Editar_van extends State<editar_van> {
                           labelStyle: TextStyle(color: Colors.black),
                           focusedBorder: OutlineInputBorder(),
                           enabledBorder: OutlineInputBorder(),
+                          counterText: "",
                         ),
                         onSaved: (value) =>
                             _motorista.brand_van = value.toString(),

@@ -113,6 +113,14 @@ class MotoristaRepository {
     var alunos = jsonDecode(resposta.body);
     _responsavel = ParentsModel.fromJson(alunos[0]);
     // alunos.map((objeto) => this._responsavel = ParentsModel.fromJson(alunos[0]));
+
+    var resposta = await http.get(url);
+    print(resposta.body);
+
+    var alunos = jsonDecode(resposta.body);
+    // _responsavel = ParentsModel.fromJson(alunos[0]);
+    alunos.map((objeto) => this._responsavel = ParentsModel.fromJson(objeto));
+
     return _responsavel;
   }
 }
