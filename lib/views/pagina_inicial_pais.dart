@@ -30,8 +30,8 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
     print(_responsaveis);
   }
 
-  Future<DriverModel> readMotorista(String login) async {
-    _motorista = await motoristaRepository.lerMotorista(login);
+  Future<DriverModel> readMotorista(String uuid) async {
+    _motorista = await motoristaRepository.lerMotoristaUUID(uuid);
     print(_motorista.user.name);
   }
 
@@ -85,11 +85,13 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
           onTap: () async {
-            await readAluno(login);
-
-            //vincularMotorista();
             ReturnArguments argumentos = new ReturnArguments();
+            await readAluno(login);
             argumentos.responsaveis = _responsaveis;
+            if (_responsaveis.codDriver != null) {
+              await readMotorista(_responsaveis.codDriver);
+              argumentos.motorista = _motorista;
+            }
             Navigator.of(context)
                 .pushNamed('/vincularmotorista', arguments: argumentos);
           },
@@ -110,7 +112,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
             icon: const Icon(Icons.login_outlined),
             color: Colors.black,
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed('/acesso');
             },
           ),
         ],

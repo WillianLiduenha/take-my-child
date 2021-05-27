@@ -83,9 +83,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
   // }
   @override
   Widget build(BuildContext context) {
-
     _responsaveis = ModalRoute.of(context).settings.arguments;
-  
 
     print(_responsaveis[0].name_child);
 
@@ -120,7 +118,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Card(
-                        color: Color.fromARGB(255, 255, 255, 224),
+                        color: Color.fromARGB(255, 252, 222, 118),
                         child: Padding(
                           padding: const EdgeInsets.all(20),
                           child: ListTile(

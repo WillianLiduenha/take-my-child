@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/main.dart';
+import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/views/pagina_inicial_pais.dart';
 
 class vincular_motorista extends StatefulWidget {
@@ -10,19 +11,61 @@ class vincular_motorista extends StatefulWidget {
 
 class _Vincular_motorista extends State<vincular_motorista> {
   bool vinculado;
-
   final _formKey = GlobalKey<FormState>();
-  next(BuildContext context) {
+  MotoristaRepository motoristaRepository = MotoristaRepository();
+  String login;
+
+  Future mensagem(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String> vincularMotorista(
+      String uuid_aluno, String login_motorista) async {
+    var resposta = await motoristaRepository.vincularMotorista(
+        uuid_aluno, login_motorista);
+    return resposta;
+  }
+
+  vincular(BuildContext context, ReturnArguments argumentos) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-
-      Navigator.of(context).pushNamed('/cadastrovan');
+      var resposta =
+          await vincularMotorista(argumentos.responsaveis.user.id, login);
+      print(resposta);
+      if (resposta != "") {
+        await mensagem(context, "Motorista vinculado a esta conta!");
+        Navigator.of(context).pushNamed('/paginainicialpais',
+            arguments: argumentos.responsaveis.user.login);
+      } else {
+        await mensagem(context, "Motorista NÃO FOI VINCULADO!");
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     ReturnArguments argumentos = ModalRoute.of(context).settings.arguments;
+    print(argumentos.motorista.user.name);
     argumentos.responsaveis.codDriver == null
         ? vinculado = false
         : vinculado = true;
@@ -68,7 +111,7 @@ class _Vincular_motorista extends State<vincular_motorista> {
                     focusedBorder: OutlineInputBorder(),
                     enabledBorder: OutlineInputBorder(),
                   ),
-                  //onSaved: (value) => _tarefa.texto = value,
+                  onSaved: (value) => login = value,
                   validator: (value) =>
                       value.isEmpty ? "Campo obrigatório" : null,
                 ),
@@ -78,7 +121,7 @@ class _Vincular_motorista extends State<vincular_motorista> {
                   height: 40,
                   child: TextButton(
                     onPressed: () {
-                      next(context);
+                      vincular(context, argumentos);
                     },
                     child: Text(
                       "Vincular",
@@ -102,8 +145,21 @@ class _Vincular_motorista extends State<vincular_motorista> {
                   width: double.infinity,
                   height: 40,
                   child: TextButton(
-                    onPressed: () {
-                      vinculado != false ? next(context) : Container();
+                    onPressed: () async {
+                      if (vinculado) {
+                        var resposta = await vincularMotorista(
+                            argumentos.responsaveis.user.id, null);
+                        print(resposta);
+                        if (resposta == "") {
+                          await mensagem(
+                              context, "Motorista desvinculado desta conta!");
+                          Navigator.of(context).pushNamed('/paginainicialpais',
+                              arguments: argumentos.responsaveis.user.login);
+                        } else {
+                          await mensagem(
+                              context, "Motorista NÃO FOI DESVINCULADO!");
+                        }
+                      }
                     },
                     child: Text(
                       "Desvincular",
@@ -143,7 +199,10 @@ class _Vincular_motorista extends State<vincular_motorista> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         width: double.infinity,
                         height: 130,
-                        color: Color.fromARGB(255, 252, 222, 118),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color.fromARGB(255, 252, 222, 118),
+                        ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,14 +215,16 @@ class _Vincular_motorista extends State<vincular_motorista> {
                                 ),
                               ),
                               Text(
-                                "NOME MOTORISTA",
+                                "Nome: " +
+                                    argumentos.motorista.user.name.toString(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
                                 ),
                               ),
                               Text(
-                                "Login motorista",
+                                "Login: " +
+                                    argumentos.motorista.user.login.toString(),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,

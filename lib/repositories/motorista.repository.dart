@@ -48,6 +48,20 @@ class MotoristaRepository {
     return _motorista;
   }
 
+  Future<DriverModel> lerMotoristaUUID(String uuid) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url =
+        "https://take-my-child-api.herokuapp.com/readmotoristauuid/$uuid";
+    var response = await http.get(url);
+    print(response.body);
+
+    var moto = jsonDecode(response.body);
+    _motorista = DriverModel.fromJson(moto[0]);
+    //moto.map((objeto) => this._motorista = DriverModel.fromJson(objeto));
+    return _motorista;
+  }
+
   Future<void> alterarMotorista(DriverModel motorista) async {
     /*var url = Uri.parse(
         "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
