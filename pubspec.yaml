@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_speed_dial: ^2.1.1
+  table_calendar: ^2.3.3
+  mask_text_input_formatter: ^1.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

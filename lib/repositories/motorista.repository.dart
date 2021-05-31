@@ -91,7 +91,7 @@ class MotoristaRepository {
   Future<dynamic> vincularMotorista(
       String uuid_aluno, String login_motorista) async {
     /*var url = Uri.parse(
-        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+        "https://3000-azure-pig-hpn6uol7.ws-us08.gitpod.io/updatecodmotorista");*/
     String url = 'https://take-my-child-api.herokuapp.com/updatecodmotorista';
 
     var json_body = '{"uuid_aluno":' +

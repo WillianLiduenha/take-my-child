@@ -57,7 +57,7 @@ class _Vincular_motorista extends State<vincular_motorista> {
         Navigator.of(context).pushNamed('/paginainicialpais',
             arguments: argumentos.responsaveis.user.login);
       } else {
-        await mensagem(context, "Motorista NÃO FOI VINCULADO!");
+        await mensagem(context, "Motorista não encontrado!");
       }
     }
   }
@@ -148,7 +148,7 @@ class _Vincular_motorista extends State<vincular_motorista> {
                     onPressed: () async {
                       if (vinculado) {
                         var resposta = await vincularMotorista(
-                            argumentos.responsaveis.user.id, null);
+                            argumentos.responsaveis.user.id, "");
                         print(resposta);
                         if (resposta == "") {
                           await mensagem(
