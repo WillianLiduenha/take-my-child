@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:take_my_child/views/ausencia_aluno.dart';
 import 'package:take_my_child/views/cadastrar_aluno.dart';
 import 'package:take_my_child/views/cadastrar_pais.dart';
 import 'package:take_my_child/views/cadastro_motorista.dart';
@@ -21,9 +23,13 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // Método responsável por desenhar a tela do aplicativo.
     return MaterialApp(
+      supportedLocales: [const Locale('pt', 'BR')],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
       debugShowCheckedModeBanner: false,
       // home: inicio(),
-
       routes: {
         '/': (context) => inicio(),
         '/acesso': (context) => acesso(),
@@ -39,6 +45,7 @@ class App extends StatelessWidget {
         '/paginainicialpais': (context) => pagina_inicial_pais(),
         '/meusalunos': (context) => MeusAlunos(),
         '/vincularmotorista': (context) => vincular_motorista(),
+        '/ausenciaaluno': (context) => AusenciaAluno(),
       },
 
       initialRoute: '/',

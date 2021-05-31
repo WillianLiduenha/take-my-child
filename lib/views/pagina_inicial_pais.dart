@@ -36,6 +36,30 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
     print(_motorista.user.name);
   }
 
+  Future mensagem(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
@@ -68,9 +92,13 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           labelBackgroundColor: Colors.white,
           backgroundColor: Colors.yellow,
           onTap: () async {
-            AusenciaAluno ausencia = AusenciaAluno();
-            await ausencia.ausencia(context);
-            //setState(() {});
+            await readAluno(login);
+            if (_responsaveis.codDriver != null) {
+              Navigator.of(context)
+                  .pushNamed('/ausenciaaluno', arguments: _responsaveis);
+            } else {
+              await mensagem(context, "Motorista ainda não cadastrado!");
+            }
           },
         ),
         SpeedDialChild(
