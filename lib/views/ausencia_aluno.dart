@@ -27,6 +27,15 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
   AbsentModel ausente = AbsentModel();
   DateTime data;
 
+  Future<void> cadastrarAusente(BuildContext context) async {
+    var resposta = await repository.cadastrarAusente(ausente);
+
+    if (resposta != null) {
+      mensagem(context, "Ausência cadastrada com sucesso!");
+    } else
+      mensagem(context, "Ausência NÃO CADASTRADA!");
+  }
+
   Future mensagem(BuildContext context, String texto) async {
     return showDialog(
       context: context,
@@ -281,7 +290,9 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
                           ausente.turno_volta != null) {
                         bool respostaMSG = await mensagemVerificacao(context);
                         print(respostaMSG);
-                        if (respostaMSG) {}
+                        if (respostaMSG) {
+                          await cadastrarAusente(context);
+                        }
                       } else {
                         await mensagem(
                             context, "Você deve selecionar o tipo de trajeto");
