@@ -112,244 +112,244 @@ class _Editar_van extends State<editar_van> {
         ),
         centerTitle: false,
       ),
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(1000),
-                                  color: Color.fromRGBO(240, 230, 140, 0.7)),
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(ArgumentError.value(_motorista));
-                                },
-                                child: Text(
-                                  "1",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Motorista",
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(Icons.arrow_right_alt, size: 40),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1000),
-                                color: Colors.yellow,
-                              ),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "2",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Van",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                    height: 15,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
                   ),
-                Text(
-                  "Van",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                ),
-              ],
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(1000),
+                                    color: Color.fromRGBO(240, 230, 140, 0.7)),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(ArgumentError.value(_motorista));
+                                  },
+                                  child: Text(
+                                    "1",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "Motorista",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(Icons.arrow_right_alt, size: 40),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: Colors.yellow,
+                                ),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    "2",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "Van",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
                       height: 15,
                     ),
-                    TextFormField(
-                      maxLength: 7,
-                      initialValue: _motorista.plate_van,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        labelText: "Placa",
-                        labelStyle: TextStyle(color: Colors.black),
-                        focusedBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(),
-                        counterText: "",
-                      ),
-                      onSaved: (value) =>
-                          _motorista.plate_van = value.toString(),
-                      validator: (value) =>
-                          value.isEmpty ? "Campo obrigatório" : null,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                       maxLength: 20,
-                      initialValue: _motorista.model_van,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        labelText: "Modelo",
-                        labelStyle: TextStyle(color: Colors.black),
-                        focusedBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(),
-                        counterText: "",
-                      ),
-                      onSaved: (value) =>
-                          _motorista.model_van = value.toString(),
-                      validator: (value) =>
-                          value.isEmpty ? "Campo obrigatório" : null,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      maxLength: 20,
-                      initialValue: _motorista.color_van,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        labelText: "Cor",
-                        labelStyle: TextStyle(color: Colors.black),
-                        focusedBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(),
-                        counterText: "",
-                      ),
-                      onSaved: (value) =>
-                          _motorista.color_van = value.toString(),
-                      validator: (value) =>
-                          value.isEmpty ? "Campo obrigatório" : null,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      maxLength: 20,
-                      initialValue: _motorista.brand_van,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        labelText: "Marca",
-                        labelStyle: TextStyle(color: Colors.black),
-                        focusedBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(),
-                        counterText: "",
-                      ),
-                      onSaved: (value) =>
-                          _motorista.brand_van = value.toString(),
-                      validator: (value) =>
-                          value.isEmpty ? "Campo obrigatório" : null,
-                    ),
-                    SizedBox(height: 25),
-                    Container(
-                      width: double.infinity,
-                      height: 40,
-                      child: TextButton(
-                        onPressed: () {
-                          alter(context);
-                        },
-                        child: Text(
-                          "Atualizar",
-                          style: TextStyle(
-                            fontSize: 15,
+                  Text(
+                    "Van",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.yellow),
-                        ),
+                          TextFormField(
+                            maxLength: 7,
+                            initialValue: _motorista.plate_van,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Placa",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _motorista.plate_van = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                             maxLength: 20,
+                            initialValue: _motorista.model_van,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Modelo",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _motorista.model_van = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            maxLength: 20,
+                            initialValue: _motorista.color_van,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Cor",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _motorista.color_van = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            maxLength: 20,
+                            initialValue: _motorista.brand_van,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Marca",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _motorista.brand_van = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(height: 25),
+                          
+                        ],
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Container(
-                      width: double.infinity,
-                      height: 40,
-                      child: TextButton(
-                        onPressed: () async {
-                          await mensagemExclusao(context);
-                          if (respostaMSG == true) {
-                            await delete(context, _motorista);
-                            bool resposta = await mensagemConfirmacao(
-                                context, "Cadastro excluído com sucesso!!");
-                            if (resposta) {
-                              Navigator.of(context).pushNamed('/acesso');
-                            }
-                          }
-                        },
-                        child: Text(
-                          "Deletar",
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromRGBO(240, 230, 140, 0.7),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          Container(
+                            width: double.infinity,
+                            height: 40,
+                            child: TextButton(
+                              onPressed: () {
+                                alter(context);
+                              },
+                              child: Text(
+                                "Atualizar",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.yellow),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Container(
+                            width: double.infinity,
+                            height: 40,
+                            child: TextButton(
+                              onPressed: () async {
+                                await mensagemExclusao(context);
+                                if (respostaMSG == true) {
+                                  await delete(context, _motorista);
+                                  bool resposta = await mensagemConfirmacao(
+                                      context, "Cadastro excluído com sucesso!!");
+                                  if (resposta) {
+                                    Navigator.of(context).pushNamed('/acesso');
+                                  }
+                                }
+                              },
+                              child: Text(
+                                "Deletar",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.black),
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromRGBO(240, 230, 140, 0.7),
+                                ),
+                              ),
+                            ),
+                          ),
+        ],
       ),
     );
   }
