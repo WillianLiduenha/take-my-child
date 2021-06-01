@@ -170,12 +170,15 @@ class _Editar_motorista extends State<editar_motorista> {
                     ],
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   Text(
                     "Motorista",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
+                  SizedBox(
+                  height: 15,
+                ),
                 ],
               ),
             ),
