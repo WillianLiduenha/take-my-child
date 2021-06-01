@@ -75,16 +75,12 @@ class _Cadastro_van extends State<cadastro_van> {
         ),
         centerTitle: false,
       ),
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 1,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     height: 20,
@@ -163,120 +159,125 @@ class _Cadastro_van extends State<cadastro_van> {
                       ),
                     ],
                   ),
+                   SizedBox(
+                        height: 30,
+                      ),
                   Text(
                     "Van",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
+                  SizedBox(
+                      height: 15,
+                    ),
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            maxLength: 7,
+                            decoration: InputDecoration(
+                              labelText: "Placa",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _motorista.plate_van = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            maxLength: 20,
+                            decoration: InputDecoration(
+                              labelText: "Modelo",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) => _motorista.model_van = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            maxLength: 20,
+                            decoration: InputDecoration(
+                              labelText: "Cor",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) => _motorista.color_van = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            maxLength: 20,
+                            decoration: InputDecoration(
+                              labelText: "Marca",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) => _motorista.brand_van = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(height: 25),
+                          
+                        ],
+                      ),
+                    ),
+                  ),
+                  
                 ],
               ),
             ),
-            Flexible(
-              flex: 3,
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        maxLength: 7,
-                        decoration: InputDecoration(
-                          labelText: "Placa",
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          counterText: "",
-                        ),
-                        onSaved: (value) =>
-                            _motorista.plate_van = value.toString(),
-                        validator: (value) =>
-                            value.isEmpty ? "Campo obrigatório" : null,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        maxLength: 20,
-                        decoration: InputDecoration(
-                          labelText: "Modelo",
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          counterText: "",
-                        ),
-                        onSaved: (value) => _motorista.model_van = value,
-                        validator: (value) =>
-                            value.isEmpty ? "Campo obrigatório" : null,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        maxLength: 20,
-                        decoration: InputDecoration(
-                          labelText: "Cor",
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          counterText: "",
-                        ),
-                        onSaved: (value) => _motorista.color_van = value,
-                        validator: (value) =>
-                            value.isEmpty ? "Campo obrigatório" : null,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        maxLength: 20,
-                        decoration: InputDecoration(
-                          labelText: "Marca",
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(),
-                          counterText: "",
-                        ),
-                        onSaved: (value) => _motorista.brand_van = value,
-                        validator: (value) =>
-                            value.isEmpty ? "Campo obrigatório" : null,
-                      ),
-                      SizedBox(height: 25),
-                      Container(
-                        width: double.infinity,
-                        height: 40,
-                        child: TextButton(
-                          onPressed: () {
-                            create(context, _motorista);
-                          },
-                          child: Text(
-                            "Cadastrar",
-                            style: TextStyle(
-                              fontSize: 15,
+          ),
+          Container(
+                            width: double.infinity,
+                            height: 40,
+                            child: TextButton(
+                              onPressed: () {
+                                create(context, _motorista);
+                              },
+                              child: Text(
+                                "Cadastrar",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.black),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(Colors.yellow),
+                              ),
                             ),
                           ),
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.yellow),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

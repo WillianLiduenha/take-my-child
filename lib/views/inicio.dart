@@ -58,14 +58,19 @@ class _Inicio extends State<inicio> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "Este é seu primeiro acesso ao TakeMyChild, neste aplicativo facilitaremos tanto para Motoristas de Vans quanto aos Pais corujas!",
-                    style: TextStyle(
-                      fontSize: 15,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: Text(
+                      "Este é seu primeiro acesso ao TakeMyChild. Desenvolvido tanto para Motoristas de Vans quanto para os Pais corujas!",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
-                    height: 50,
+                    height: MediaQuery.of(context).size.height * 0.05,
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     width: double.maxFinite,
                     child: TextButton(
@@ -90,7 +95,15 @@ class _Inicio extends State<inicio> {
                       ),
                     ),
                   ),
-                  Text("Seus filhos seguros com TakeMyChild."),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Seus filhos seguros com TakeMyChild.",
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
                 ],
               ),
             ),

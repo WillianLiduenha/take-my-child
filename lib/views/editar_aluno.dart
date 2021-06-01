@@ -106,8 +106,9 @@ class _Editar_Aluno extends State<editar_aluno> {
     print(_responsaveis.route.toString());
     _percurso = _responsaveis.route != 3 && _responsaveis.route == 2
         ? trajeto.volta
-        : _responsaveis.route == 3 ? trajeto.idaVolta : trajeto.ida;
-  
+        : _responsaveis.route == 3
+            ? trajeto.idaVolta
+            : trajeto.ida;
 
     return Scaffold(
       //início da tela
@@ -128,282 +129,277 @@ class _Editar_Aluno extends State<editar_aluno> {
         ),
         centerTitle: false,
       ),
-      body: Container(
-        width: double.infinity,
-        child: Card(
-          child: Column(
-            children: [
-              Flexible(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  width: 45,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    color: Color.fromRGBO(240, 230, 140, 0.7),
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      "1",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: Color.fromRGBO(240, 230, 140, 0.7),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    "1",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  "Responsável",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
+                              ),
+                              Text(
+                                "Responsável",
+                                style: TextStyle(
+                                  fontSize: 15,
                                 ),
-                              ],
-                            ),
-                            Icon(Icons.arrow_right_alt, size: 40),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  width: 45,
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(1000),
-                                    color: Colors.yellow,
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "2",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
+                              ),
+                            ],
+                          ),
+                          Icon(Icons.arrow_right_alt, size: 40),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                width: 45,
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: Colors.yellow,
+                                ),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    "2",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  "Aluno",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              ),
+                              Text(
+                                "Aluno",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "Aluno",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    ),
-                  ],
-                ),
-              ),
-              Flexible(
-                flex: 3,
-                child: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          maxLength: 50,
-                          initialValue: _responsaveis.name_child.toString(),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: "Nome do aluno",
-                            labelStyle: TextStyle(color: Colors.black),
-                            focusedBorder: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            counterText: "",
-                          ),
-                          onSaved: (value) =>
-                              _responsaveis.name_child = value.toString(),
-                          validator: (value) =>
-                              value.isEmpty ? "Campo obrigatório" : null,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        TextFormField(
-                          maxLength: 20,
-                          initialValue: _responsaveis.school.toString(),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: "Escola",
-                            labelStyle: TextStyle(color: Colors.black),
-                            focusedBorder: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            counterText: "",
-                          ),
-                          onSaved: (value) => _responsaveis.school = value,
-                          validator: (value) =>
-                              value.isEmpty ? "Campo obrigatório" : null,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        TextFormField(
-                          maxLength: 50,
-                          initialValue: _responsaveis.addressSchool.toString(),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: "Endereço da escola",
-                            labelStyle: TextStyle(color: Colors.black),
-                            focusedBorder: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(),
-                            counterText: "",
-                          ),
-                          onSaved: (value) =>
-                              _responsaveis.addressSchool = value,
-                          validator: (value) =>
-                              value.isEmpty ? "Campo obrigatório" : null,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Trajeto / Percurso",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Ida/volta'),
-                          leading: Radio(
-                            fillColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
-                            value: trajeto.idaVolta,
-                            groupValue: _percurso,
-                            onChanged: (trajeto value) {
-                              setState(() {
-                                _percurso = value;
-                                _responsaveis.route = 3;
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Ida'),
-                          leading: Radio(
-                            fillColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
-                            value: trajeto.ida,
-                            groupValue: _percurso,
-                            onChanged: (trajeto value) {
-                              setState(() {
-                                _percurso = value;
-                                _responsaveis.route = 1;
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Volta'),
-                          leading: Radio(
-                            fillColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
-                            value: trajeto.volta,
-                            groupValue: _percurso,
-                            onChanged: (trajeto value) {
-                              setState(() {
-                                _percurso = value;
-                                _responsaveis.route = 2;
-                              });
-                            },
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 40,
-                          child: TextButton(
-                            onPressed: () {
-                              alter(context);
-                            },
-                            child: Text(
-                              "Atualizar",
-                              style: TextStyle(
-                                fontSize: 15,
                               ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Aluno",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            maxLength: 50,
+                            initialValue: _responsaveis.name_child.toString(),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Nome do aluno",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
                             ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
+                            onSaved: (value) =>
+                                _responsaveis.name_child = value.toString(),
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            maxLength: 20,
+                            initialValue: _responsaveis.school.toString(),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Escola",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) => _responsaveis.school = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            maxLength: 50,
+                            initialValue:
+                                _responsaveis.addressSchool.toString(),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Endereço da escola",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) =>
+                                _responsaveis.addressSchool = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Trajeto / Percurso",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('Ida/volta'),
+                            leading: Radio(
+                              fillColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.yellow),
+                              value: trajeto.idaVolta,
+                              groupValue: _percurso,
+                              onChanged: (trajeto value) {
+                                setState(() {
+                                  _percurso = value;
+                                  _responsaveis.route = 3;
+                                });
+                              },
                             ),
                           ),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          width: double.infinity,
-                          height: 40,
-                          child: TextButton(
-                            onPressed: () async {
-                              await mensagemExclusao(context);
-                              if (respostaMSG == true) {
-                                await delete(context, _responsaveis);
-                                bool resposta = await mensagemConfirmacao(
-                                    context, "Cadastro excluído com sucesso!!");
-                                if (resposta) {
-                                  Navigator.of(context).pushNamed('/acesso');
-                                }
-                              }
-                            },
-                            child: Text(
-                              "Deletar",
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
+                          ListTile(
+                            title: const Text('Ida'),
+                            leading: Radio(
+                              fillColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                Color.fromRGBO(240, 230, 140, 0.7),
-                              ),
+                              value: trajeto.ida,
+                              groupValue: _percurso,
+                              onChanged: (trajeto value) {
+                                setState(() {
+                                  _percurso = value;
+                                  _responsaveis.route = 1;
+                                });
+                              },
                             ),
                           ),
-                        ),
-                      ],
+                          ListTile(
+                            title: const Text('Volta'),
+                            leading: Radio(
+                              fillColor: MaterialStateProperty.all<Color>(
+                                  Colors.black),
+                              value: trajeto.volta,
+                              groupValue: _percurso,
+                              onChanged: (trajeto value) {
+                                setState(() {
+                                  _percurso = value;
+                                  _responsaveis.route = 2;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                alter(context);
+              },
+              child: Text(
+                "Atualizar",
+                style: TextStyle(
+                  fontSize: 15,
                 ),
               ),
-            ],
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow),
+              ),
+            ),
           ),
-        ),
+          SizedBox(height: 5),
+          Container(
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () async {
+                await mensagemExclusao(context);
+                if (respostaMSG == true) {
+                  await delete(context, _responsaveis);
+                  bool resposta = await mensagemConfirmacao(
+                      context, "Cadastro excluído com sucesso!!");
+                  if (resposta) {
+                    Navigator.of(context).pushNamed('/acesso');
+                  }
+                }
+              },
+              child: Text(
+                "Deletar",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(240, 230, 140, 0.7),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
