@@ -316,6 +316,20 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon( Icons.warning_outlined, color: Colors.red,),
+                  SizedBox(width: 5,),
+                  Text("ATENÇÃO, APÓS SALVAR NÃO SERÁ POSSÍVEL DESFAZER A AÇÃO!",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                      )),
+                ],
+              )
             ],
           ),
         ),

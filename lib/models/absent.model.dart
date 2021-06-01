@@ -20,7 +20,7 @@ class AbsentModel {
       "aluno_codigo": cod_parents,
       "turno_ida": turno_ida,
       "turno_volta": turno_volta,
-      "data": date
+      "data": date.toString()
     };
   }
 }

@@ -9,9 +9,10 @@ class AbsentRepository {
     /*var url = Uri.parse(
         "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
     String url = 'https://take-my-child-api.herokuapp.com/createausente';
+    
     print(jsonEncode(ausente.toJson()));
 
-    /*var response = await http.post(
+    var response = await http.post(
       url,
       body: jsonEncode(ausente.toJson()),
       headers: <String, String>{
@@ -19,6 +20,6 @@ class AbsentRepository {
       },
     );
 
-    return response.body;*/
+    return response.body;
   }
 }
