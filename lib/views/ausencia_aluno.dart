@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:take_my_child/models/absent.model.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/repositories/absent.repository.dart';
 import 'package:take_my_child/views/cadastrar_aluno.dart';
 
 class AusenciaAluno extends StatefulWidget {
@@ -13,27 +14,52 @@ class AusenciaAluno extends StatefulWidget {
 
 enum trajeto { idaVolta, ida, volta }
 
-trajeto _percurso = trajeto.idaVolta;
+trajeto _percurso;
 
 class _AusenciaAlunoState extends State<AusenciaAluno> {
-  var maskFormatter = new MaskTextInputFormatter(
-      mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+  /*var maskFormatter = new MaskTextInputFormatter(
+      mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});*/
 
   final _formKey = GlobalKey<FormState>();
-  ParentsModel _responsaveis = new ParentsModel();
+  ParentsModel _responsaveis = ParentsModel();
+  AbsentRepository repository = AbsentRepository();
+
   AbsentModel ausente = AbsentModel();
-  String date = '';
-  bool msg = false;
   DateTime data;
 
+  Future mensagem(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future mensagemVerificacao(BuildContext context) async {
+    String turno;
     if (ausente.turno_ida == 1 && ausente.turno_volta == 1)
-      String turno = "Ida/Volta";
+      turno = "Ida/Volta";
     else {
       if (ausente.turno_ida == 1 && ausente.turno_volta == 0)
-        String turno = "Ida";
+        turno = "Ida";
       else
-        String turno = "Volta";
+        turno = "Volta";
     }
     return showDialog(
       context: context,
@@ -41,36 +67,62 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
       builder: (_) {
         return AlertDialog(
           title: Container(
+            height: 35,
             child: Row(
               children: [
-                Icon(Icons.warning_outlined, color: Colors.red),
+                Icon(
+                  Icons.warning_outlined,
+                  color: Colors.red,
+                  size: 30,
+                ),
                 SizedBox(
                   width: 15,
                 ),
-                Text("Confirmar falta:"),
+                Text("Confirmar falta?"),
+              ],
+            ),
+          ),
+          content: Container(
+            height: 50,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Data: " +
+                      ausente.date.day.toString() +
+                      "/" +
+                      ausente.date.month.toString() +
+                      "/" +
+                      ausente.date.year.toString(),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Trajeto escolhido: " + turno.toString())
               ],
             ),
           ),
           actions: [
             FlatButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "SALVAR",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(
+                  "CANCELAR",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             FlatButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                "CANCELAR",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              onPressed: () async {
+                Navigator.of(context).pop(true);
+              },
+              child: Text("SIM",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
           ],
         );
@@ -91,39 +143,6 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
       ausente.date = data;
     });
   }
-
-  /*validar(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-
-      final data = date.split("/");
-      if (data.length == 3) {
-        final day = int.tryParse(data[0]);
-        final month = int.tryParse(data[1]);
-        final year = int.tryParse(data[2]);
-        if (day >= 1 &&
-            day <= 31 &&
-            month >= 1 &&
-            month <= 12 &&
-            year >= 2021) {
-          ausente.date = DateTime(year, month, day);
-          print(ausente.date);
-          mensagemVerificacao(context);
-          setState(() {
-            msg = false;
-          });
-        } else {
-          setState(() {
-            msg = true;
-          });
-        }
-      } else {
-        setState(() {
-          msg = true;
-        });
-      }
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -159,21 +178,61 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
                 height: 20,
               ),
               ausente.date == null
-                  ? Container(
-                      height: 30,
+                  ? Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.yellow),
+                        width: 250,
+                        height: 40,
+                        child: TextButton(
+                          onPressed: () {
+                            getDate();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Selecionar data",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Icon(Icons.calendar_today, color: Colors.black),
+                            ],
+                          ),
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
                       child: Row(
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              getDate();
-                            },
-                            child: Text(
-                              "Selecionar Data",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                          Text(
+                            "Data: ",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            ausente.date.day.toString() +
+                                "/" +
+                                ausente.date.month.toString() +
+                                "/" +
+                                ausente.date.year.toString(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
                             ),
                           ),
                           SizedBox(
@@ -191,30 +250,7 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
                           )
                         ],
                       ),
-                    )
-                  : Text("Olá"),
-              /*TextFormField(
-                cursorColor: Colors.black,
-                decoration: InputDecoration(
-                  labelText: "Data",
-                  labelStyle: TextStyle(color: Colors.black, fontSize: 18),
-                  focusedBorder: OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(),
-                ),
-                onSaved: (value) => date = value,
-                validator: (value) =>
-                    value.isEmpty ? "Campo obrigatório" : null,
-                inputFormatters: [maskFormatter],
-              ),*/
-              msg == true
-                  ? Text(
-                      "Data incorreta!",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.red,
-                      ),
-                    )
-                  : Container(),
+                    ),
               SizedBox(
                 height: 30,
               ),
@@ -239,9 +275,20 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
                 width: double.infinity,
                 height: 45,
                 child: TextButton(
-                  onPressed: () {
-                    //validar(context);
-                    //getDate();
+                  onPressed: () async {
+                    if (ausente.date != null) {
+                      if (ausente.turno_ida != null &&
+                          ausente.turno_volta != null) {
+                        bool respostaMSG = await mensagemVerificacao(context);
+                        print(respostaMSG);
+                        if (respostaMSG) {}
+                      } else {
+                        await mensagem(
+                            context, "Você deve selecionar o tipo de trajeto");
+                      }
+                    } else {
+                      await mensagem(context, "Você deve selecionar uma data");
+                    }
                   },
                   child: Text(
                     "Salvar",

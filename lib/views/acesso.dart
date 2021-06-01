@@ -56,7 +56,7 @@ class _acesso extends State<acesso> {
   Widget build(BuildContext context) {
     return Scaffold(
       //início da tela
-      appBar: AppBar(
+      /*appBar: AppBar(
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -70,7 +70,7 @@ class _acesso extends State<acesso> {
           style: TextStyle(color: Colors.black, fontSize: 25),
         ),
         centerTitle: false,
-      ),
+      ),*/
       body: Column(
         children: [
           Container(
