@@ -31,7 +31,8 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
     var resposta = await repository.cadastrarAusente(ausente);
 
     if (resposta != null) {
-      mensagem(context, "Ausência cadastrada com sucesso!");
+      await mensagem(context, "Ausência cadastrada com sucesso!");
+      Navigator.of(context).pushNamed('/paginainicialpais', arguments: _responsaveis.user.login);
     } else
       mensagem(context, "Ausência NÃO CADASTRADA!");
   }
