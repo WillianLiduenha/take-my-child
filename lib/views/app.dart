@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:take_my_child/views/alunos_presentes.dart';
 import 'package:take_my_child/views/ausencia_aluno.dart';
 import 'package:take_my_child/views/cadastrar_aluno.dart';
 import 'package:take_my_child/views/cadastrar_pais.dart';
@@ -46,6 +47,7 @@ class App extends StatelessWidget {
         '/meusalunos': (context) => MeusAlunos(),
         '/vincularmotorista': (context) => vincular_motorista(),
         '/ausenciaaluno': (context) => AusenciaAluno(),
+        '/alunospresentes': (context) => AlunosPresentes(),
       },
 
       initialRoute: '/',
