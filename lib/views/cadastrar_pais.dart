@@ -255,7 +255,6 @@ class _CadastrarPais extends State<cadastrar_pais> {
                           TextFormField(
                             maxLength: 50,
                             cursorColor: Colors.black,
-                            keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               labelText: "Email",
                               labelStyle: TextStyle(color: Colors.black),

@@ -295,11 +295,10 @@ class _EditarPais extends State<editar_pais> {
                               height: 5,
                             ),
                             TextFormField(
-                              maxLength: 11,
+                              maxLength: 50,
                               initialValue:
                                   _responsaveis.user.email,
                               cursorColor: Colors.black,
-                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 labelText: "Email",
                                 labelStyle: TextStyle(color: Colors.black),
