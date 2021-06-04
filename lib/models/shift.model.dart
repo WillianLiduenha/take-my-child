@@ -5,9 +5,9 @@ class ShiftModel {
   int shift;
   int shift_status;
 
-  AbsentModel();
+  ShiftModel();
 
-  AbsentModel.fromJson(Map<String, dynamic> json) {
+  ShiftModel.fromJson(Map<String, dynamic> json) {
     id = json['uuid'];
     cod_aluno = json['aluno_codigo'];
     cod_driver = json['motorista_codigo'];

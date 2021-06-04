@@ -229,10 +229,10 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             onSaved: (value) => _responsaveis.address = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
-                          ),
-                          SizedBox(
+                          ),SizedBox(
                             height: 5,
                           ),
+                          
                           TextFormField(
                             maxLength: 11,
                             cursorColor: Colors.black,
@@ -246,6 +246,24 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             ),
                             onSaved: (value) =>
                                 _responsaveis.user.telephone = value,
+                            validator: (value) =>
+                                value.isEmpty ? "Campo obrigatório" : null,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          TextFormField(
+                            maxLength: 50,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(),
+                              counterText: "",
+                            ),
+                            onSaved: (value) => _responsaveis.user.email = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),

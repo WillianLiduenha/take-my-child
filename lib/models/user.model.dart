@@ -8,6 +8,7 @@ class UserModel {
   String cpf;
   String rg;
   String telephone;
+  String email;
 
   /*UserModel({
     this.id,
@@ -29,6 +30,7 @@ class UserModel {
     cpf = json['cpf'];
     rg = json['rg'];
     telephone = json['telefone'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
@@ -38,7 +40,8 @@ class UserModel {
       "senha": password,
       "cpf": cpf,
       "rg": rg,
-      "telefone": telephone
+      "telefone": telephone,
+      "email": email
     };
   }
 }

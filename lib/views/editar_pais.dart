@@ -291,6 +291,30 @@ class _EditarPais extends State<editar_pais> {
                             SizedBox(
                               height: 5,
                             ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            TextFormField(
+                              maxLength: 11,
+                              initialValue:
+                                  _responsaveis.user.email,
+                              cursorColor: Colors.black,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: "Email",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: OutlineInputBorder(),
+                                enabledBorder: OutlineInputBorder(),
+                                counterText: "",
+                              ),
+                              onSaved: (value) =>
+                                  _responsaveis.user.email = value.toString(),
+                              validator: (value) =>
+                                  value.isEmpty ? "Campo obrigatório" : null,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
                             TextFormField(
                               maxLength: 25,
                               initialValue: _responsaveis.user.login,
