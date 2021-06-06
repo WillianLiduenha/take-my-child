@@ -22,12 +22,12 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
         leading: Container(),
         actions: [
           TextButton.icon(
-            icon: Text(
+            label: Text(
               "Finalizar turno",
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
-            label: const Icon(Icons.login_outlined, color: Colors.black),
+            icon: const Icon(Icons.login_outlined, color: Colors.black),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -51,12 +51,24 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                 //ParentsModel _responsavel = _responsaveis[indice];
                 ShiftModel _aluno = _alunosPresentes[indice];
                 return Card(
-                  child: CheckboxListTile(
-                      tristate: true,
-                      value: null,
-                      onChanged: (value) {
-                        return Container();
-                      },
+                  child: ListTile(
+                      leading:
+                          _aluno.shift_status == 0 || _aluno.shift_status == 3
+                              ? IconButton(
+                                  icon: Icon(Icons.cancel_outlined,
+                                      color: Colors.red))
+                              : Container(),
+                      trailing:
+                          _aluno.shift_status == 0 && _aluno.shift_status != 3
+                              ? IconButton(
+                                  icon: Icon(
+                                  Icons.garage_outlined,
+                                  color: Colors.black,
+                                  size: 30,
+                                ))
+                              : IconButton(
+                                  icon: Icon(Icons.pin_drop_outlined,
+                                      color: Colors.black)),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -83,7 +95,9 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(
+                                height: 5,
+                              ),
                               Row(
                                 children: [
                                   Text(
