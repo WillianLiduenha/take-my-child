@@ -22,17 +22,25 @@ class _Editar_van extends State<editar_van> {
           title: Text("Deseja exluir seu usuário?"),
           actions: [
             FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text("CANCELAR"),
-            ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(
+                  "CANCELAR",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             FlatButton(
               onPressed: () async {
-                respostaMSG = await true;
                 Navigator.of(context).pop(true);
               },
-              child: Text("SIM"),
+              child: Text("SIM",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
           ],
         );
@@ -198,8 +206,8 @@ class _Editar_van extends State<editar_van> {
                     ],
                   ),
                   SizedBox(
-                      height: 15,
-                    ),
+                    height: 15,
+                  ),
                   Text(
                     "Van",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
@@ -234,7 +242,7 @@ class _Editar_van extends State<editar_van> {
                             height: 5,
                           ),
                           TextFormField(
-                             maxLength: 20,
+                            maxLength: 20,
                             initialValue: _motorista.model_van,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -288,7 +296,6 @@ class _Editar_van extends State<editar_van> {
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           SizedBox(height: 25),
-                          
                         ],
                       ),
                     ),
@@ -298,57 +305,55 @@ class _Editar_van extends State<editar_van> {
             ),
           ),
           Container(
-                            width: double.infinity,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: () {
-                                alter(context);
-                              },
-                              child: Text(
-                                "Atualizar",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.black),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.yellow),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            width: double.infinity,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: () async {
-                                await mensagemExclusao(context);
-                                if (respostaMSG == true) {
-                                  await delete(context, _motorista);
-                                  bool resposta = await mensagemConfirmacao(
-                                      context, "Cadastro excluído com sucesso!!");
-                                  if (resposta) {
-                                    Navigator.of(context).pushNamed('/acesso');
-                                  }
-                                }
-                              },
-                              child: Text(
-                                "Deletar",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.black),
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromRGBO(240, 230, 140, 0.7),
-                                ),
-                              ),
-                            ),
-                          ),
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                alter(context);
+              },
+              child: Text(
+                "Atualizar",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow),
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          Container(
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () async {
+                await mensagemExclusao(context);
+                if (respostaMSG == true) {
+                  await delete(context, _motorista);
+                  bool resposta = await mensagemConfirmacao(
+                      context, "Cadastro excluído com sucesso!!");
+                  if (resposta) {
+                    Navigator.of(context).pushNamed('/acesso');
+                  }
+                }
+              },
+              child: Text(
+                "Deletar",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(240, 230, 140, 0.7),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

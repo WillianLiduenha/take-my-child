@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/models/shift.model.dart';
+import 'package:take_my_child/repositories/shift.repository.dart';
 
 class AlunosPresentes extends StatefulWidget {
   @override
@@ -12,10 +13,35 @@ class AlunosPresentes extends StatefulWidget {
 
 class _AlunosPresentesState extends State<AlunosPresentes> {
   List<ShiftModel> _alunosPresentes = List<ShiftModel>();
+  ShiftRepository shiftRepository = ShiftRepository();
 
   @override
   Widget build(BuildContext context) {
     _alunosPresentes = ModalRoute.of(context).settings.arguments;
+
+    Future mensagem(BuildContext context, String texto) async {
+      return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (_) {
+          return AlertDialog(
+            title: Text(texto),
+            actions: [
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -28,8 +54,19 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
             icon: const Icon(Icons.login_outlined, color: Colors.black),
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              var resposta = await shiftRepository
+                  .readTurnoFinalizado(_alunosPresentes[0].cod_driver);
+              print(resposta);
+              if (resposta == null) {
+                var resposta1 = await shiftRepository
+                    .deleteTurnoMotorista(_alunosPresentes[0].cod_driver);
+                await mensagem(context, "Parabéns, o turno foi finalizado!");
+                Navigator.of(context).pop();
+              } else {
+                await mensagem(context,
+                    "Todos os alunos devem estar com status faltou ou de entregue!");
+              }
             },
           ),
         ],
@@ -62,7 +99,7 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                           _aluno.shift_status == 0 && _aluno.shift_status != 3
                               ? IconButton(
                                   icon: Icon(
-                                  Icons.garage_outlined,
+                                  Icons.car_repair,
                                   color: Colors.black,
                                   size: 30,
                                 ))

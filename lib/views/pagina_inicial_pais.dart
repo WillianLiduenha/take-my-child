@@ -60,6 +60,41 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
     );
   }
 
+  Future mensagemConfirmacaoSaida(BuildContext context, String texto) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(texto),
+          actions: [
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(
+                  "CANCELAR",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+            FlatButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true);
+              },
+              child: Text("SIM",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   SpeedDial controllerSpeedDial(String login) {
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
@@ -136,8 +171,12 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
           IconButton(
             icon: const Icon(Icons.login_outlined),
             color: Colors.black,
-            onPressed: () {
-              Navigator.of(context).pushNamed('/acesso');
+            onPressed: () async {
+              var retorno = await mensagemConfirmacaoSaida(
+                  context, "Você deseja sair do sistema?");
+              if (retorno) {
+                Navigator.of(context).pushNamed('/acesso');
+              }
             },
           ),
         ],

@@ -34,17 +34,25 @@ class _Editar_Aluno extends State<editar_aluno> {
           title: Text("Deseja exluir seu usuário?"),
           actions: [
             FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text("CANCELAR"),
-            ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(
+                  "CANCELAR",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             FlatButton(
               onPressed: () async {
-                respostaMSG = await true;
                 Navigator.of(context).pop(true);
               },
-              child: Text("SIM"),
+              child: Text("SIM",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
           ],
         );

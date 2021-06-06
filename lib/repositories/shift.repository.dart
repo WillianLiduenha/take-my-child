@@ -7,7 +7,7 @@ class ShiftRepository {
   Future<List<ShiftModel>> iniciarTurno(
       String login_motorista, int turno) async {
     // var url =
-        // Uri.parse("https://3000-salmon-sole-va6j67xo.ws-us08.gitpod.io/turno");
+    // Uri.parse("https://3000-salmon-sole-va6j67xo.ws-us08.gitpod.io/turno");
     String url = "https://take-my-child-api.herokuapp.com/turno";
 
     var json_body = '{"login_motorista":' +
@@ -33,5 +33,27 @@ class ShiftRepository {
     //_responsavel = ParentsModel.fromJson(alunos[0]);
     var lista = alunos.map((objeto) => ShiftModel.fromJson(objeto));
     return lista.toList();
+  }
+
+  Future<dynamic> readTurnoFinalizado(String uuid_motorista) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/verificarlogin/$login");*/
+    var url = Uri.parse(
+        "https://take-my-child-api.herokuapp.com/readturno/$uuid_motorista");
+    var resposta = await http.get(url);
+
+    if (resposta.statusCode == 401) {
+      return null;
+    } else {
+      return resposta.body;
+    }
+  }
+
+  Future<void> deleteTurnoMotorista(String uuid_motorista) async {
+    /*var url = Uri.parse(
+        "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
+    String url =
+        "https://take-my-child-api.herokuapp.com/deleteturnomotorista/$uuid_motorista";
+    var response = await http.delete(url);
   }
 }
