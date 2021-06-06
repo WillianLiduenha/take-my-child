@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/models/shift.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
+import 'package:take_my_child/repositories/shift.repository.dart';
 import 'package:take_my_child/views/vincular_motorista.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
@@ -10,11 +12,17 @@ class pagina_inicial_motorista extends StatefulWidget {
   _Pagina_inicial_motorista createState() => _Pagina_inicial_motorista();
 }
 
+enum turno { ida, volta }
+
+turno _percurso;
+
 class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   final _formKey = GlobalKey<FormState>();
   DriverModel _motorista = DriverModel();
   MotoristaRepository repository = MotoristaRepository();
   List<ParentsModel> _responsavel = List<ParentsModel>();
+  List<ShiftModel> _alunosTurno = List<ShiftModel>();
+  ShiftRepository shiftRepository = ShiftRepository();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
@@ -30,6 +38,53 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   Future<DriverModel> listagemAluno(String login) async {
     _responsavel = await repository.listagemAluno(login);
     print(_motorista.user.name);
+  }
+
+  Future<void> iniciarTurno(
+      BuildContext context, String login_motorista) async {
+    int turno = await mensagemIniciarTurno(context);
+    if (turno != null) {
+      _alunosTurno = await shiftRepository.iniciarTurno(login_motorista, turno);
+      Navigator.of(context)
+          .pushNamed('/alunospresentes', arguments: _alunosTurno);
+    }
+  }
+
+  Future mensagemIniciarTurno(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Qual turno você deseja iniciar?"),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(1),
+              child: Text(
+                "TURNO IDA",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(2),
+              child: Text(
+                "TURNO VOLTA",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future mensagem(BuildContext context) {
@@ -155,7 +210,9 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
               width: 300,
               height: 60,
               child: TextButton(
-                  onPressed: () => Navigator.of(context).pushNamed('/'),
+                  onPressed: () {
+                    iniciarTurno(context, login);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/models/shift.model.dart';
 
 class AlunosPresentes extends StatefulWidget {
   @override
@@ -10,11 +11,11 @@ class AlunosPresentes extends StatefulWidget {
 }
 
 class _AlunosPresentesState extends State<AlunosPresentes> {
-  // List<ParentsModel> _responsaveis;
+  List<ShiftModel> _alunosPresentes = List<ShiftModel>();
 
   @override
   Widget build(BuildContext context) {
-    //_responsaveis = ModalRoute.of(context).settings.arguments;
+    _alunosPresentes = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -59,19 +60,18 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Aqui colocamos o nome do aluno", // _responsavel.name_child,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                  ),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Aqui colocamos o nome do aluno", // _responsavel.name_child,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                  fontSize: 12,
                                 ),
-                              ],
-                            ),
-                          
+                              ),
+                            ],
+                          ),
                           Container(
                             height: 2,
                             width: double.infinity,
