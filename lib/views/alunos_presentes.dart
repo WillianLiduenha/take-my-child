@@ -46,9 +46,10 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 3, //_responsaveis.length,
+              itemCount: _alunosPresentes.length,
               itemBuilder: (_, indice) {
                 //ParentsModel _responsavel = _responsaveis[indice];
+                ShiftModel _aluno = _alunosPresentes[indice];
                 return Card(
                   child: CheckboxListTile(
                       tristate: true,
@@ -62,20 +63,48 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Aqui colocamos o nome do aluno", // _responsavel.name_child,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Nome: ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    _aluno.name_aluno,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5,),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Endereço: ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    _aluno.adress_aluno,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
-                          ),
-                          Container(
-                            height: 2,
-                            width: double.infinity,
-                            color: Colors.black,
                           ),
                         ],
                       )),

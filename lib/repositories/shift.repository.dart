@@ -6,9 +6,9 @@ import 'package:take_my_child/models/shift.model.dart';
 class ShiftRepository {
   Future<List<ShiftModel>> iniciarTurno(
       String login_motorista, int turno) async {
-    var url =
-        Uri.parse("https://3000-salmon-sole-va6j67xo.ws-us08.gitpod.io/turno");
-    //String url = "https://take-my-child-api.herokuapp.com/turno";
+    // var url =
+        // Uri.parse("https://3000-salmon-sole-va6j67xo.ws-us08.gitpod.io/turno");
+    String url = "https://take-my-child-api.herokuapp.com/turno";
 
     var json_body = '{"login_motorista":' +
         '"' +
@@ -27,7 +27,7 @@ class ShiftRepository {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    //print(resposta.body);
+    print(resposta.body);
 
     Iterable alunos = jsonDecode(resposta.body);
     //_responsavel = ParentsModel.fromJson(alunos[0]);
