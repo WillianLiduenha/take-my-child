@@ -192,33 +192,36 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
       body: Container(
         width: double.infinity,
         child: Card(
-          child: Column(children: [
-            SizedBox(height: 60),
-            Image.asset(
-              "assets/images/van.png",
-              width: 150,
-            ),
-            Container(
-              margin: const EdgeInsets.only(right: 40, left: 40),
-              child: Text(
-                "Seja bem-vindo(a) ao Take My Child!",
-                style: TextStyle(
-                  fontSize: 22,
+          child: Column(
+            children: [
+              SizedBox(height: 60),
+              Image.asset(
+                "assets/images/van.png",
+                width: 150,
+              ),
+              Container(
+                margin: const EdgeInsets.only(right: 40, left: 40),
+                child: Text(
+                  "Seja bem-vindo(a) ao Take My Child!",
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Flexible(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5), color: Colors.blue),
-                width: double.infinity,
-                height: double.infinity,
+              SizedBox(
+                height: 50,
               ),
-            ),
-          ]),
+              Flexible(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.blue),
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: controllerSpeedDial(login),

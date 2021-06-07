@@ -26,7 +26,7 @@ class ShiftModel {
       "aluno_nome": name_aluno,
       "aluno_endereco": adress_aluno,
       "turno": shift,
-      "status_turno": shift_status,
+      "status": shift_status,
       "data": data.toString()
     };
   }

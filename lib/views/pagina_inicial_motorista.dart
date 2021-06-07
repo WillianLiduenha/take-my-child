@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/models/shift.model.dart';
+import 'package:take_my_child/repositories/email.repository.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/repositories/shift.repository.dart';
 import 'package:take_my_child/views/vincular_motorista.dart';
@@ -23,6 +24,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
   List<ParentsModel> _responsavel = List<ParentsModel>();
   List<ShiftModel> _alunosTurno = List<ShiftModel>();
   ShiftRepository shiftRepository = ShiftRepository();
+  EmailRepository emailRepository = EmailRepository();
 
   Future<DriverModel> readMotorista(String login) async {
     _motorista = await repository.lerMotorista(login);
@@ -249,8 +251,9 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
               width: 300,
               height: 60,
               child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     iniciarTurno(context, login);
+                    // await emailRepository.sendMail();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

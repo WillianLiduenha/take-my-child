@@ -49,6 +49,22 @@ class ShiftRepository {
     }
   }
 
+  Future<dynamic> updateStatus(ShiftModel aluno) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/cadastrarmotorista");*/
+    String url = "https://take-my-child-api.herokuapp.com/statusturno";
+    print(jsonEncode(aluno.toJson()));
+
+    var response = await http.put(
+      url,
+      body: jsonEncode(aluno.toJson()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    return response.body;
+  }
+
   Future<void> deleteTurnoMotorista(String uuid_motorista) async {
     /*var url = Uri.parse(
         "https://3000-indigo-lynx-4p0wwhth.ws-us04.gitpod.io/readmotorista/$login");*/
