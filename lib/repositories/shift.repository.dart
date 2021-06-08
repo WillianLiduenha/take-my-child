@@ -72,4 +72,23 @@ class ShiftRepository {
         "https://take-my-child-api.herokuapp.com/deleteturnomotorista/$uuid_motorista";
     var response = await http.delete(url);
   }
+
+  Future<ShiftModel> readTurnoAluno(String login) async {
+    /*var url = Uri.parse(
+        "https://3000-harlequin-wildcat-7ivobsaz.ws-us04.gitpod.io/verificarlogin/$login");*/
+    var url = Uri.parse(
+        "https://take-my-child-api.herokuapp.com/readturnoaluno/$login");
+    var resposta = await http.get(url);
+
+    if (resposta.statusCode == 401) {
+      return null;
+    } else {
+      ShiftModel aluno = new ShiftModel();
+      var decode = jsonDecode(resposta.body);
+
+      aluno = ShiftModel.fromJson(decode[0]);
+
+      return aluno;
+    }
+  }
 }

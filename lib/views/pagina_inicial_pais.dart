@@ -3,9 +3,10 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:http/http.dart';
 import 'package:take_my_child/models/driver.model.dart';
 import 'package:take_my_child/models/parents.model.dart';
+import 'package:take_my_child/models/shift.model.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/repositories/responsavel.repository.dart';
-import 'package:take_my_child/views/ausencia_aluno.dart';
+import 'package:take_my_child/repositories/shift.repository.dart';
 
 class ReturnArguments {
   ParentsModel responsaveis = ParentsModel();
@@ -19,11 +20,14 @@ class pagina_inicial_pais extends StatefulWidget {
 
 class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   final _formKey = GlobalKey<FormState>();
+  int trajeto = 0;
 
   ParentsModel _responsaveis = new ParentsModel();
   DriverModel _motorista = new DriverModel();
   ResponsavelRepository repository = ResponsavelRepository();
   MotoristaRepository motoristaRepository = MotoristaRepository();
+  ShiftRepository shiftRepository = new ShiftRepository();
+  ShiftModel shiftModel = new ShiftModel();
 
   Future<ParentsModel> readAluno(String login) async {
     _responsaveis = await repository.lerAluno(login);
@@ -34,6 +38,11 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   Future<DriverModel> readMotorista(String uuid) async {
     _motorista = await motoristaRepository.lerMotoristaUUID(uuid);
     print(_motorista.user.name);
+  }
+
+  Future readTurno(String login) async {
+    shiftModel = await shiftRepository.readTurnoAluno(login);
+    print(shiftModel);
   }
 
   Future mensagem(BuildContext context, String texto) async {
@@ -163,6 +172,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
   @override
   Widget build(BuildContext context) {
     String login = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       //início da tela
       appBar: AppBar(
@@ -182,7 +192,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
         ],
         backgroundColor: Colors.yellow,
         title: Text(
-          "Página Inicial",
+          "Página Inicial Responsável",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -212,32 +222,180 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
                 height: 50,
               ),
               Flexible(
-                child: TextButton(
-                  onPressed: () async {
-                    // iniciarTurno(context, login);
-                    // await emailRepository.sendMail();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/van.png",
-                        width: 40,
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Text(
-                        "Iniciar turno",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ],
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.yellow),
+                  width: 300,
+                  height: 60,
+                  child: TextButton(
+                    onPressed: () async {
+                      // iniciarTurno(context, login);
+                      // await emailRepository.sendMail();
+                      await readTurno(login);
+
+                      if (shiftModel != null) {
+                        if (shiftModel.shift_status == 3) {
+                          mensagem(
+                            context, "O motorista informou que seu filho faltou! Por favor, lembre-se de cadastrar a falta pelo nosso aplicativo!");
+                        setState(() {
+                          trajeto = 0;
+                        });
+                        } else {
+                          setState(() {
+                            trajeto = 1;
+                          });
+                        }
+                      } else {
+                        mensagem(
+                            context, "O motorista ainda não iniciou o turno");
+                        setState(() {
+                          trajeto = 0;
+                        });
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/van.png",
+                          width: 40,
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Text(
+                          trajeto == 1 ? "Recarregar" : "Acompanhar trajeto",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                    ),
                   ),
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                  ),),
+                ),
               ),
+              SizedBox(
+                height: 50,
+              ),
+              trajeto == 1
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              width: 45,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1000),
+                                color: Colors.yellow,
+                              ),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "1",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Início percurso!",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(Icons.arrow_right_alt, size: 40),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              width: 45,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: shiftModel.shift_status > 0 &&
+                                          shiftModel.shift_status != 3
+                                      ? Colors.yellow
+                                      : Color.fromRGBO(240, 230, 140, 0.7)),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "2",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: shiftModel.shift_status > 0 &&
+                                            shiftModel.shift_status != 3
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Aluno na van",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(Icons.arrow_right_alt, size: 40),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              width: 45,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  color: shiftModel.shift_status == 2
+                                      ? Colors.yellow
+                                      : Color.fromRGBO(240, 230, 140, 0.7)),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "3",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: shiftModel.shift_status == 2
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Chegou ao destino",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Container(),
             ],
           ),
         ),

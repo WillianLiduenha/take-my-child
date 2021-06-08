@@ -50,7 +50,6 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
       _alunosTurno = await shiftRepository.iniciarTurno(login_motorista, turno);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => AlunosPresentes(_alunosTurno)));
-      // .pushNamed('/alunospresentes', arguments: _alunosTurno);
     }
   }
 
@@ -219,7 +218,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
         ],
         backgroundColor: Colors.yellow,
         title: Text(
-          "Página Inicial",
+          "Página Inicial Motorista",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -269,7 +268,7 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
                     ),
                     Text(
                       "Iniciar turno",
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
