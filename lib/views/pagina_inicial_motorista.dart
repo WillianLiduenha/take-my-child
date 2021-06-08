@@ -6,6 +6,7 @@ import 'package:take_my_child/models/shift.model.dart';
 import 'package:take_my_child/repositories/email.repository.dart';
 import 'package:take_my_child/repositories/motorista.repository.dart';
 import 'package:take_my_child/repositories/shift.repository.dart';
+import 'package:take_my_child/views/alunos_presentes.dart';
 import 'package:take_my_child/views/vincular_motorista.dart';
 
 class pagina_inicial_motorista extends StatefulWidget {
@@ -48,7 +49,8 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
     if (turno != null) {
       _alunosTurno = await shiftRepository.iniciarTurno(login_motorista, turno);
       Navigator.of(context)
-          .pushNamed('/alunospresentes', arguments: _alunosTurno);
+          .push(MaterialPageRoute(builder: (_) => AlunosPresentes(_alunosTurno)));
+      // .pushNamed('/alunospresentes', arguments: _alunosTurno);
     }
   }
 
@@ -251,30 +253,31 @@ class _Pagina_inicial_motorista extends State<pagina_inicial_motorista> {
               width: 300,
               height: 60,
               child: TextButton(
-                  onPressed: () async {
-                    iniciarTurno(context, login);
-                    // await emailRepository.sendMail();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/van.png",
-                        width: 40,
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Text(
-                        "Iniciar turno",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ],
-                  ),
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                  )),
+                onPressed: () async {
+                  iniciarTurno(context, login);
+                  // await emailRepository.sendMail();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/van.png",
+                      width: 40,
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      "Iniciar turno",
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ],
+                ),
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                ),
+              ),
             ),
           ]),
         ),

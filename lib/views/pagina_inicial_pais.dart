@@ -212,13 +212,31 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
                 height: 50,
               ),
               Flexible(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.blue),
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
+                child: TextButton(
+                  onPressed: () async {
+                    // iniciarTurno(context, login);
+                    // await emailRepository.sendMail();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/van.png",
+                        width: 40,
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Text(
+                        "Iniciar turno",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                  ),),
               ),
             ],
           ),

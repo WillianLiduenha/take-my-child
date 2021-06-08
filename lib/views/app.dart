@@ -47,7 +47,6 @@ class App extends StatelessWidget {
         '/meusalunos': (context) => MeusAlunos(),
         '/vincularmotorista': (context) => vincular_motorista(),
         '/ausenciaaluno': (context) => AusenciaAluno(),
-        '/alunospresentes': (context) => AlunosPresentes(),
       },
 
       initialRoute: '/',

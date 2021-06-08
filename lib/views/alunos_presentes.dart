@@ -8,19 +8,20 @@ import 'package:take_my_child/repositories/email.repository.dart';
 import 'package:take_my_child/repositories/shift.repository.dart';
 
 class AlunosPresentes extends StatefulWidget {
+  final List<ShiftModel> _alunosPresentes;
+
+  AlunosPresentes(this._alunosPresentes);
+
   @override
   _AlunosPresentesState createState() => _AlunosPresentesState();
 }
 
 class _AlunosPresentesState extends State<AlunosPresentes> {
-  List<ShiftModel> _alunosPresentes = List<ShiftModel>();
   ShiftRepository shiftRepository = ShiftRepository();
   EmailRepository emailRepository = EmailRepository();
 
   @override
   Widget build(BuildContext context) {
-    _alunosPresentes = ModalRoute.of(context).settings.arguments;
-
     Future<void> updateStatus(ShiftModel aluno) async {
       var resposta = await shiftRepository.updateStatus(aluno);
       print(resposta);
@@ -34,38 +35,14 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
             await emailRepository.sendEmailAbsent(resposta);
         }
       }
+
+      setState(() {
+        widget._alunosPresentes.sort((a, b) => a.shift_status.compareTo(b.shift_status));
+      });
     }
 
-    // int i = 0;
-    // void ordenar() {
-    //   List<ShiftModel> lista0 = List<ShiftModel>();
-    //   List<ShiftModel> lista1 = List<ShiftModel>();
-    //   List<ShiftModel> lista2 = List<ShiftModel>();
-    //   List<ShiftModel> lista3 = List<ShiftModel>();
 
-    //   while (i < _alunosPresentes.length) {
-    //     print(_alunosPresentes);
-    //     print(lista1);
-    //     print(lista2);
-    //     print(lista3);
-    //     if (_alunosPresentes[i].shift_status == 0) {
-    //       lista0.add(_alunosPresentes[i]);
-    //       print(lista0[i].name_aluno);
-    //     }
-    //     if (_alunosPresentes[i].shift_status == 1) {
-    //       lista1.add(_alunosPresentes[i]);
-    //     }
-    //     if (_alunosPresentes[i].shift_status == 2) {
-    //       lista2.add(_alunosPresentes[i]);
-    //     }
-    //     if (_alunosPresentes[i].shift_status == 3) {
-    //       lista3.add(_alunosPresentes[i]);
-    //     }
-    //     i++;
-    //   }
-    //   _alunosPresentes1 = lista0 + lista1 + lista2 + lista3;
-    // }
-
+    
     Future mensagem(BuildContext context, String texto) async {
       return showDialog(
         context: context,
@@ -103,11 +80,11 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
             icon: const Icon(Icons.login_outlined, color: Colors.black),
             onPressed: () async {
               var resposta = await shiftRepository
-                  .readTurnoFinalizado(_alunosPresentes[0].cod_driver);
+                  .readTurnoFinalizado(widget._alunosPresentes[0].cod_driver);
               print(resposta);
               if (resposta == null) {
-                var resposta1 = await shiftRepository
-                    .deleteTurnoMotorista(_alunosPresentes[0].cod_driver);
+                var resposta1 = await shiftRepository.deleteTurnoMotorista(
+                    widget._alunosPresentes[0].cod_driver);
                 await mensagem(context, "Parabéns, o turno foi finalizado!");
                 Navigator.of(context).pop();
               } else {
@@ -130,9 +107,9 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: _alunosPresentes.length,
+              itemCount: widget._alunosPresentes.length,
               itemBuilder: (_, indice) {
-                ShiftModel _aluno = _alunosPresentes[indice];
+                ShiftModel _aluno = widget._alunosPresentes[indice];
 
                 return Card(
                   child: ListTile(
