@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/models/shift.model.dart';
+import 'package:take_my_child/repositories/email.repository.dart';
 import 'package:take_my_child/repositories/shift.repository.dart';
 
 class AlunosPresentes extends StatefulWidget {
@@ -14,6 +15,7 @@ class AlunosPresentes extends StatefulWidget {
 class _AlunosPresentesState extends State<AlunosPresentes> {
   List<ShiftModel> _alunosPresentes = List<ShiftModel>();
   ShiftRepository shiftRepository = ShiftRepository();
+  EmailRepository emailRepository = EmailRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,16 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
     Future<void> updateStatus(ShiftModel aluno) async {
       var resposta = await shiftRepository.updateStatus(aluno);
       print(resposta);
-      return resposta;
+      if (resposta != null && resposta != "") {
+        if (aluno.shift_status == 1)
+          await emailRepository.sendEmailVan(resposta);
+        else {
+          if (aluno.shift_status == 2)
+            await emailRepository.sendEmailDestiny(resposta);
+          else
+            await emailRepository.sendEmailAbsent(resposta);
+        }
+      }
     }
 
     // int i = 0;
@@ -125,21 +136,23 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
 
                 return Card(
                   child: ListTile(
-                      leading:
-                          _aluno.shift_status == 0 
-                              ? IconButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _aluno.shift_status = 3;
-                                        updateStatus(_aluno);
-                                        // ordenar();
-                                      },
-                                    );
+                      leading: _aluno.shift_status == 0
+                          ? IconButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    _aluno.shift_status = 3;
+                                    updateStatus(_aluno);
+                                    // ordenar();
                                   },
-                                  icon: Icon(Icons.cancel_outlined,
-                                      color: Colors.red))
-                              : SizedBox(height: 5, width: 5,),
+                                );
+                              },
+                              icon: Icon(Icons.cancel_outlined,
+                                  color: Colors.red))
+                          : SizedBox(
+                              height: 5,
+                              width: 5,
+                            ),
                       trailing: _aluno.shift_status == 0 &&
                               _aluno.shift_status != 3
                           ? IconButton(
@@ -172,21 +185,23 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                                   icon: Icon(Icons.pin_drop_outlined,
                                       color: Colors.black),
                                 )
-                              : _aluno.shift_status == 3 ? Text(
-                                  "Faltou",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ) : Text(
-                                  "Entregue",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ) ,
+                              : _aluno.shift_status == 3
+                                  ? Text(
+                                      "Faltou",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    )
+                                  : Text(
+                                      "Entregue",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
