@@ -236,11 +236,11 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
 
                       if (shiftModel != null) {
                         if (shiftModel.shift_status == 3) {
-                          mensagem(
-                            context, "O motorista informou que seu filho faltou! Por favor, lembre-se de cadastrar a falta pelo nosso aplicativo!");
-                        setState(() {
-                          trajeto = 0;
-                        });
+                          mensagem(context,
+                              "O motorista informou que seu filho faltou! Por favor, lembre-se de cadastrar a falta pelo nosso aplicativo!");
+                          setState(() {
+                            trajeto = 0;
+                          });
                         } else {
                           setState(() {
                             trajeto = 1;
@@ -395,7 +395,25 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
                         ),
                       ],
                     )
-                  : Container(),
+                  : Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.warning_outlined,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                              "ATENÇÃO: MANTENHA OS DADOS DE SEU E-MAIL SEMPRE ATUALIZADO!\nDÊ PRIORIDADE DE NOTIFICAR A FALTA PELO APLICATIVO",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              )),
+                        ],
+                      ),
+                    ),
             ],
           ),
         ),
