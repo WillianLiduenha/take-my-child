@@ -1,37 +1,71 @@
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:mailer/smtp_server/gmail.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 class EmailRepository {
-  Future<void> sendMail() async {
-    String username = 'takemychildpdm@gmail.com';
-    String password = 'takemychildpdm';
-    String domainSmtp = 'smtp.gmail.com';
+  Future<void> sendEmailDestiny(String email) async {
+    // var url =
+    // Uri.parse("https://3000-blue-barnacle-4wbn17hq.ws-us08.gitpod.io/email");
+    String url = "https://take-my-child-api.herokuapp.com/email";
 
-    //also use for gmail smtp
-    //final smtpServer = gmail(username, password);
+    var json_body = '{"destinatario":' +
+        '"' +
+        '$email' +
+        '",' +
+        '"assunto": "Take my child informa: Chegou ao destino!",' +
+        '"texto": "<h3>O motorista informa que seu filho foi entregue ao destino!</h3>"}';
+    print(json_body);
 
-    //user for your own domain
-    final smtpServer = SmtpServer(domainSmtp,
-        username: username, password: password, port: 587);
+    var resposta = await http.post(
+      url,
+      body: json_body,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
 
-    final message = Message()
-      ..from = Address(username, 'Your name')
-      ..recipients.add('cris45fatec@gmail.com')
-      //..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
-      //..bccRecipients.add(Address('bccAddress@example.com'))
-      ..subject = 'Dart Mailer library :: 😀 :: ${DateTime.now()}'
-      ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-      ..html = "<h1>Shawon</h1>\n<p>Hey! Here's some HTML content</p>";
+  Future<void> sendEmailVan(String email) async {
+    // var url =
+    // Uri.parse("https://3000-blue-barnacle-4wbn17hq.ws-us08.gitpod.io/email");
+    String url = "https://take-my-child-api.herokuapp.com/email";
 
-    try {
-      final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
-    } on MailerException catch (e) {
-      print('Message not sent.');
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
-    }
+    var json_body = '{"destinatario":' +
+        '"' +
+        '$email' +
+        '",' +
+        '"assunto": "Take my child informa: Na Van!",' +
+        '"texto": "<h3>O motorista informa que seu filho escontra-se dentro da van!</h3>"}';
+    print(json_body);
+
+    var resposta = await http.post(
+      url,
+      body: json_body,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
+
+  Future<void> sendEmailAbsent(String email) async {
+    // var url =
+    // Uri.parse("https://3000-blue-barnacle-4wbn17hq.ws-us08.gitpod.io/email");
+    String url = "https://take-my-child-api.herokuapp.com/email";
+
+    var json_body = '{"destinatario":' +
+        '"' +
+        '$email' +
+        '",' +
+        '"assunto": "Take my child informa: Aluno faltou!",' +
+        '"texto": "<h3>O motorista informa que seu filho faltou!</h3><br /><p>Recomendamos que informe ao motorista que o aluno irá faltar por meio do nosso aplicativo.</p>"}';
+    print(json_body);
+
+    var resposta = await http.post(
+      url,
+      body: json_body,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
   }
 }
