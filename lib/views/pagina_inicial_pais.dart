@@ -398,6 +398,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
                   : Container(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Icon(
                             Icons.warning_outlined,
