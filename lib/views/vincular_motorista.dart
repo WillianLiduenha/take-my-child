@@ -230,6 +230,14 @@ class _Vincular_motorista extends State<vincular_motorista> {
                                   fontSize: 15,
                                 ),
                               ),
+                              Text(
+                                "Telefone: " +
+                                    argumentos.motorista.user.telephone.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
                             ]),
                       ),
               ],

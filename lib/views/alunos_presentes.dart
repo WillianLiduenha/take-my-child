@@ -228,6 +228,26 @@ class _AlunosPresentesState extends State<AlunosPresentes> {
                                   ),
                                 ],
                               ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Escola: ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    _aluno.school,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ],

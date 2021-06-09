@@ -4,8 +4,10 @@ class ShiftModel {
   String name_aluno;
   String adress_aluno;
   int shift;
+  String school;
   int shift_status;
   DateTime data;
+  
 
   ShiftModel();
 
@@ -15,6 +17,7 @@ class ShiftModel {
     name_aluno = json['aluno_nome'];
     adress_aluno = json['aluno_endereco'];
     shift = json['turno'];
+    school = json['escola'];
     shift_status = json['status_turno'];
     //data = json['data'];
   }
@@ -26,6 +29,7 @@ class ShiftModel {
       "aluno_nome": name_aluno,
       "aluno_endereco": adress_aluno,
       "turno": shift,
+      "escola": school,
       "status": shift_status,
       "data": data.toString()
     };
