@@ -1,3 +1,4 @@
+import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/main.dart';
 import 'package:take_my_child/models/driver.model.dart';
@@ -47,6 +48,18 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
         mensagem(context);
       } else {
         Navigator.of(context).pushNamed('/cadastrovan', arguments: _motorista);
+      }
+    }
+  }
+
+  String _validarCPF(String value) {
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else {
+      if (CPF.isValid(CPF.format(value))) {
+        return null;
+      } else {
+        return "CPF inválido";
       }
     }
   }
@@ -112,7 +125,8 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                                 Text(
                                   "Motorista",
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.bold),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -160,7 +174,8 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                     ),
                     Text(
                       "Motorista",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                     SizedBox(
                       height: 15,
@@ -206,8 +221,7 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                               ),
                               onSaved: (value) =>
                                   _motorista.user.cpf = value.toString(),
-                              validator: (value) =>
-                                  value.isEmpty ? "Campo obrigatório" : null,
+                              validator: _validarCPF,
                             ),
                             SizedBox(
                               height: 5,
@@ -242,7 +256,8 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                                 enabledBorder: OutlineInputBorder(),
                                 counterText: "",
                               ),
-                              onSaved: (value) => _motorista.cnh = value.toString(),
+                              onSaved: (value) =>
+                                  _motorista.cnh = value.toString(),
                               validator: (value) =>
                                   value.isEmpty ? "Campo obrigatório" : null,
                             ),
@@ -303,7 +318,6 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                                   value.isEmpty ? "Campo obrigatório" : null,
                             ),
                             SizedBox(height: 25),
-                           
                           ],
                         ),
                       ),
@@ -312,27 +326,27 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
                 ),
               ),
             ),
-             Container(
-                              width: double.infinity,
-                              height: 40,
-                              child: TextButton(
-                                onPressed: () {
-                                  next(context);
-                                },
-                                child: Text(
-                                  "Seguinte",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.yellow),
-                                ),
-                              ),
-                            ),
+            Container(
+              width: double.infinity,
+              height: 40,
+              child: TextButton(
+                onPressed: () {
+                  next(context);
+                },
+                child: Text(
+                  "Seguinte",
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.yellow),
+                ),
+              ),
+            ),
           ],
         ),
       ),

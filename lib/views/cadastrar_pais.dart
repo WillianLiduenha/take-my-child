@@ -1,3 +1,4 @@
+import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/repositories/responsavel.repository.dart';
@@ -50,6 +51,31 @@ class _CadastrarPais extends State<cadastrar_pais> {
     }
   }
 
+  String _validarEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else if (!regExp.hasMatch(value)) {
+      return "Email inválido";
+    } else {
+      return null;
+    }
+  }
+
+  String _validarCPF(String value) {
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else {
+      if (CPF.isValid(CPF.format(value))) {
+        return null;
+      } else {
+        return "CPF inválido";
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +104,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -146,12 +174,16 @@ class _CadastrarPais extends State<cadastrar_pais> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     "Responsável",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Form(
                     key: _formKey,
                     child: Padding(
@@ -191,8 +223,7 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               counterText: "",
                             ),
                             onSaved: (value) => _responsaveis.user.cpf = value,
-                            validator: (value) =>
-                                value.isEmpty ? "Campo obrigatório" : null,
+                            validator: _validarCPF,
                           ),
                           SizedBox(
                             height: 5,
@@ -229,10 +260,10 @@ class _CadastrarPais extends State<cadastrar_pais> {
                             onSaved: (value) => _responsaveis.address = value,
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
-                          ),SizedBox(
+                          ),
+                          SizedBox(
                             height: 5,
                           ),
-                          
                           TextFormField(
                             maxLength: 11,
                             cursorColor: Colors.black,
@@ -262,9 +293,9 @@ class _CadastrarPais extends State<cadastrar_pais> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _responsaveis.user.email = value,
-                            validator: (value) =>
-                                value.isEmpty ? "Campo obrigatório" : null,
+                            onSaved: (value) =>
+                                _responsaveis.user.email = value,
+                            validator: _validarEmail,
                           ),
                           SizedBox(
                             height: 5,

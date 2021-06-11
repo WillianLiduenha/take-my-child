@@ -91,7 +91,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                     ),
                                     Row(
                                       children: [
-                                        Text("Telefone contato:"),
+                                        Text("Telefone contato: "),
                                         Text(_responsavel.user.telephone),
                                       ],
                                     ),
@@ -100,7 +100,7 @@ class _MeusAlunosState extends State<MeusAlunos> {
                                     ),
                                     Row(
                                       children: [
-                                        Text("Endereço:"),
+                                        Text("Endereço: "),
                                         Text(_responsavel.address),
                                       ],
                                     ),

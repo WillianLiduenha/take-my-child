@@ -1,3 +1,4 @@
+import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/models/parents.model.dart';
 import 'package:take_my_child/repositories/responsavel.repository.dart';
@@ -62,6 +63,31 @@ class _EditarPais extends State<editar_pais> {
     }
   }
 
+  String _validarEmail(String value) {
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else if (!regExp.hasMatch(value)) {
+      return "Email inválido";
+    } else {
+      return null;
+    }
+  }
+
+  String _validarCPF(String value) {
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else {
+      if (CPF.isValid(CPF.format(value))) {
+        return null;
+      } else {
+        return "CPF inválido";
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _responsaveis = ModalRoute.of(context).settings.arguments;
@@ -107,8 +133,7 @@ class _EditarPais extends State<editar_pais> {
                                 width: 45,
                                 height: 45,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(1000),
+                                    borderRadius: BorderRadius.circular(1000),
                                     color: Colors.yellow),
                                 child: TextButton(
                                   onPressed: () {},
@@ -125,8 +150,7 @@ class _EditarPais extends State<editar_pais> {
                               Text(
                                 "Responsável",
                                 style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -174,12 +198,11 @@ class _EditarPais extends State<editar_pais> {
                   ),
                   Text(
                     "Responsável",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 25),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(
-                  height: 15,
-                    ),
+                    height: 15,
+                  ),
                   Container(
                     child: Form(
                       key: _formKey,
@@ -224,8 +247,7 @@ class _EditarPais extends State<editar_pais> {
                               ),
                               onSaved: (value) =>
                                   _responsaveis.user.cpf = value.toString(),
-                              validator: (value) =>
-                                  value.isEmpty ? "Campo obrigatório" : null,
+                              validator: _validarCPF,
                             ),
                             SizedBox(
                               height: 5,
@@ -283,8 +305,8 @@ class _EditarPais extends State<editar_pais> {
                                 enabledBorder: OutlineInputBorder(),
                                 counterText: "",
                               ),
-                              onSaved: (value) =>
-                                  _responsaveis.user.telephone = value.toString(),
+                              onSaved: (value) => _responsaveis.user.telephone =
+                                  value.toString(),
                               validator: (value) =>
                                   value.isEmpty ? "Campo obrigatório" : null,
                             ),
@@ -296,8 +318,7 @@ class _EditarPais extends State<editar_pais> {
                             ),
                             TextFormField(
                               maxLength: 50,
-                              initialValue:
-                                  _responsaveis.user.email,
+                              initialValue: _responsaveis.user.email,
                               cursorColor: Colors.black,
                               decoration: InputDecoration(
                                 labelText: "Email",
@@ -308,8 +329,7 @@ class _EditarPais extends State<editar_pais> {
                               ),
                               onSaved: (value) =>
                                   _responsaveis.user.email = value.toString(),
-                              validator: (value) =>
-                                  value.isEmpty ? "Campo obrigatório" : null,
+                              validator: _validarEmail,
                             ),
                             SizedBox(
                               height: 5,
@@ -346,13 +366,12 @@ class _EditarPais extends State<editar_pais> {
                                 enabledBorder: OutlineInputBorder(),
                                 counterText: "",
                               ),
-                              onSaved: (value) =>
-                                  _responsaveis.user.password = value.toString(),
+                              onSaved: (value) => _responsaveis.user.password =
+                                  value.toString(),
                               validator: (value) =>
                                   value.isEmpty ? "Campo obrigatório" : null,
                             ),
                             SizedBox(height: 25),
-                            
                           ],
                         ),
                       ),
@@ -363,28 +382,25 @@ class _EditarPais extends State<editar_pais> {
             ),
           ),
           Container(
-                              width: double.infinity,
-                              height: 40,
-                              child: TextButton(
-                                onPressed: () {
-                                  next(context);
-                                },
-                                child: Text(
-                                  "Seguinte",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.black),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.yellow),
-                                ),
-                              ),
-                            ),
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                next(context);
+              },
+              child: Text(
+                "Seguinte",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow),
+              ),
+            ),
+          ),
         ],
       ),
     );

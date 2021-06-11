@@ -1,3 +1,4 @@
+import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:flutter/material.dart';
 import 'package:take_my_child/main.dart';
 import 'package:take_my_child/models/driver.model.dart';
@@ -56,6 +57,18 @@ class _Editar_motorista extends State<editar_motorista> {
         }
       } else {
         Navigator.of(context).pushNamed('/editarvan', arguments: _motorista);
+      }
+    }
+  }
+
+  String _validarCPF(String value) {
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else {
+      if (CPF.isValid(CPF.format(value))) {
+        return null;
+      } else {
+        return "CPF inválido";
       }
     }
   }
@@ -173,8 +186,8 @@ class _Editar_motorista extends State<editar_motorista> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(
-                  height: 15,
-                    ),
+                    height: 15,
+                  ),
                   Form(
                     key: _formKey,
                     child: Padding(
@@ -194,7 +207,7 @@ class _Editar_motorista extends State<editar_motorista> {
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(),
-                               counterText: "",
+                              counterText: "",
                             ),
                             onSaved: (value) =>
                                 _motorista.user.name = value.toString(),
@@ -218,14 +231,13 @@ class _Editar_motorista extends State<editar_motorista> {
                             ),
                             onSaved: (value) =>
                                 _motorista.user.cpf = value.toString(),
-                            validator: (value) =>
-                                value.isEmpty ? "Campo obrigatório" : null,
+                            validator: _validarCPF,
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           TextFormField(
-                             maxLength: 9,
+                            maxLength: 9,
                             initialValue: _motorista.user.rg.toString(),
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
@@ -256,7 +268,8 @@ class _Editar_motorista extends State<editar_motorista> {
                               enabledBorder: OutlineInputBorder(),
                               counterText: "",
                             ),
-                            onSaved: (value) => _motorista.cnh = value.toString(),
+                            onSaved: (value) =>
+                                _motorista.cnh = value.toString(),
                             validator: (value) =>
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
@@ -321,7 +334,6 @@ class _Editar_motorista extends State<editar_motorista> {
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           SizedBox(height: 25),
-                          
                         ],
                       ),
                     ),
@@ -330,29 +342,26 @@ class _Editar_motorista extends State<editar_motorista> {
               ),
             ),
           ),
-
-
           Container(
-                    width: double.infinity,
-                    height: 40,
-                    child: TextButton(
-                      onPressed: () {
-                        next(context);
-                      },
-                      child: Text(
-                        "Seguinte",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.yellow),
-                      ),
-                    ),
-                  ),
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                next(context);
+              },
+              child: Text(
+                "Seguinte",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow),
+              ),
+            ),
+          ),
         ],
       ),
     );
