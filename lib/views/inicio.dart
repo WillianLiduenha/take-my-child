@@ -31,7 +31,7 @@ class _Inicio extends State<inicio> {
             Flexible(
               child: Column(
                 children: [
-                  SizedBox(height: 120),
+                  SizedBox(height: 110),
                   Image.asset(
                     "assets/images/van.png",
                     width: 200,
@@ -47,64 +47,66 @@ class _Inicio extends State<inicio> {
               ),
             ),
             Flexible(
-              child: Column(
-                children: [
-                  Text(
-                    "Seja bem-vindo(a)!",
-                    style: TextStyle(
-                      fontSize: 25,
+              child: SingleChildScrollView(
+                              child: Column(
+                  children: [
+                    Text(
+                      "Seja bem-vindo(a)!",
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    child: Text(
-                      "Este é seu primeiro acesso ao TakeMyChild. Desenvolvido tanto para Motoristas de Vans quanto para os Pais corujas!",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    width: double.maxFinite,
-                    child: TextButton(
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed('/acesso'),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
                       child: Text(
-                        "Acesso ao sistema",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                        "Este é seu primeiro acesso ao TakeMyChild. Desenvolvido tanto para Motoristas de Vans quanto para os Pais corujas!",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      width: double.maxFinite,
+                      child: TextButton(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/acesso'),
+                        child: Text(
+                          "Acesso ao sistema",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.yellow),
                         ),
                       ),
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.yellow),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Seus filhos seguros com TakeMyChild.",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Seus filhos seguros com TakeMyChild.",
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

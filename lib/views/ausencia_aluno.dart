@@ -182,156 +182,158 @@ class _AusenciaAlunoState extends State<AusenciaAluno> {
         width: double.infinity,
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              ausente.date == null
-                  ? Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.yellow),
-                        width: 250,
-                        height: 40,
-                        child: TextButton(
-                          onPressed: () {
-                            getDate();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Selecionar data",
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Icon(Icons.calendar_today, color: Colors.black),
-                            ],
-                          ),
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.black),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      child: Row(
-                        children: [
-                          Text(
-                            "Data: ",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            ausente.date.day.toString() +
-                                "/" +
-                                ausente.date.month.toString() +
-                                "/" +
-                                ausente.date.year.toString(),
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.calendar_today,
-                              color: Colors.yellow,
-                              size: 20,
-                            ),
+          child: SingleChildScrollView(
+                      child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                ausente.date == null
+                    ? Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.yellow),
+                          width: 250,
+                          height: 40,
+                          child: TextButton(
                             onPressed: () {
                               getDate();
                             },
-                          )
-                        ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Selecionar data",
+                                  style: TextStyle(
+                                      fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Icon(Icons.calendar_today, color: Colors.black),
+                              ],
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.black),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              "Data: ",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              ausente.date.day.toString() +
+                                  "/" +
+                                  ausente.date.month.toString() +
+                                  "/" +
+                                  ausente.date.year.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.yellow,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                getDate();
+                              },
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-              SizedBox(
-                height: 30,
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Trajeto / Percurso",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              listviewIdaVolta(listTrajeto),
-              SizedBox(
-                height: 35,
-              ),
-              Container(
-                width: double.infinity,
-                height: 45,
-                child: TextButton(
-                  onPressed: () async {
-                    if (ausente.date != null) {
-                      if (ausente.turno_ida != null &&
-                          ausente.turno_volta != null) {
-                        bool respostaMSG = await mensagemVerificacao(context);
-                        print(respostaMSG);
-                        if (respostaMSG) {
-                          await cadastrarAusente(context);
-                        }
-                      } else {
-                        await mensagem(
-                            context, "Você deve selecionar o tipo de trajeto");
-                      }
-                    } else {
-                      await mensagem(context, "Você deve selecionar uma data");
-                    }
-                  },
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    "Salvar",
+                    "Trajeto / Percurso",
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.yellow),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                listviewIdaVolta(listTrajeto),
+                SizedBox(
+                  height: 35,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 45,
+                  child: TextButton(
+                    onPressed: () async {
+                      if (ausente.date != null) {
+                        if (ausente.turno_ida != null &&
+                            ausente.turno_volta != null) {
+                          bool respostaMSG = await mensagemVerificacao(context);
+                          print(respostaMSG);
+                          if (respostaMSG) {
+                            await cadastrarAusente(context);
+                          }
+                        } else {
+                          await mensagem(
+                              context, "Você deve selecionar o tipo de trajeto");
+                        }
+                      } else {
+                        await mensagem(context, "Você deve selecionar uma data");
+                      }
+                    },
+                    child: Text(
+                      "Salvar",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.yellow),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon( Icons.warning_outlined, color: Colors.red,),
-                  SizedBox(width: 5,),
-                  Text("ATENÇÃO, APÓS SALVAR NÃO SERÁ POSSÍVEL DESFAZER A AÇÃO!",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                      )),
-                ],
-              )
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon( Icons.warning_outlined, color: Colors.red,),
+                    SizedBox(width: 5,),
+                    Text("ATENÇÃO, APÓS SALVAR NÃO SERÁ POSSÍVEL DESFAZER A AÇÃO!",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                        )),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
