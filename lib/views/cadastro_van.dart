@@ -52,6 +52,18 @@ class _Cadastro_van extends State<cadastro_van> {
     }
   }
 
+  String _validarPlaca(String value) {
+    String pattern = r'^[a-zA-Z]{3}[0-9]{1}[A-Za-z0-9]{1}[0-9]{2}$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else if (!regExp.hasMatch(value)) {
+      return "Placa inválida";
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     DriverModel _motorista = ModalRoute.of(context).settings.arguments;
@@ -159,16 +171,16 @@ class _Cadastro_van extends State<cadastro_van> {
                       ),
                     ],
                   ),
-                   SizedBox(
-                        height: 30,
-                      ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Text(
                     "Van",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   SizedBox(
-                      height: 15,
-                    ),
+                    height: 15,
+                  ),
                   Form(
                     key: _formKey,
                     child: Padding(
@@ -191,8 +203,7 @@ class _Cadastro_van extends State<cadastro_van> {
                             ),
                             onSaved: (value) =>
                                 _motorista.plate_van = value.toString(),
-                            validator: (value) =>
-                                value.isEmpty ? "Campo obrigatório" : null,
+                            validator: _validarPlaca,
                           ),
                           SizedBox(
                             height: 5,
@@ -246,37 +257,34 @@ class _Cadastro_van extends State<cadastro_van> {
                                 value.isEmpty ? "Campo obrigatório" : null,
                           ),
                           SizedBox(height: 25),
-                          
                         ],
                       ),
                     ),
                   ),
-                  
                 ],
               ),
             ),
           ),
           Container(
-                            width: double.infinity,
-                            height: 40,
-                            child: TextButton(
-                              onPressed: () {
-                                create(context, _motorista);
-                              },
-                              child: Text(
-                                "Cadastrar",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.black),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(Colors.yellow),
-                              ),
-                            ),
-                          ),
+            width: double.infinity,
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                create(context, _motorista);
+              },
+              child: Text(
+                "Cadastrar",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.yellow),
+              ),
+            ),
+          ),
         ],
       ),
     );

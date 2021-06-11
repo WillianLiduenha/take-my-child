@@ -96,6 +96,18 @@ class _Editar_van extends State<editar_van> {
     }
   }
 
+  String _validarPlaca(String value) {
+    String pattern = r'^[a-zA-Z]{3}[0-9]{1}[A-Za-z0-9]{1}[0-9]{2}$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Campo obrigatório";
+    } else if (!regExp.hasMatch(value)) {
+      return "Placa inválida";
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _motorista = ModalRoute.of(context).settings.arguments;
@@ -235,8 +247,7 @@ class _Editar_van extends State<editar_van> {
                             ),
                             onSaved: (value) =>
                                 _motorista.plate_van = value.toString(),
-                            validator: (value) =>
-                                value.isEmpty ? "Campo obrigatório" : null,
+                            validator: _validarPlaca,
                           ),
                           SizedBox(
                             height: 5,

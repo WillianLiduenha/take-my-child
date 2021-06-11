@@ -64,6 +64,18 @@ class _Cadastro_motorista extends State<cadastro_motorista> {
     }
   }
 
+  // String _validarCNH(String value) {
+  //   if (value.length == 0) {
+  //     return "Campo obrigatório";
+  //   } else {
+  //     if (Validator) {
+  //       return null;
+  //     } else {
+  //       return "CPF inválido";
+  //     }
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
