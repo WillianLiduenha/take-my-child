@@ -35,7 +35,7 @@ class EmailRepository {
         '$email' +
         '",' +
         '"assunto": "Take my child informa: Na Van!",' +
-        '"texto": "<h3>O motorista informa que seu filho escontra-se dentro da van!</h3>"}';
+        '"texto": "<h3>O motorista informa que seu filho encontra-se dentro da van!</h3>"}';
     print(json_body);
 
     var resposta = await http.post(

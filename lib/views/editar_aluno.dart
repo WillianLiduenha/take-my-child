@@ -24,7 +24,7 @@ class _Editar_Aluno extends State<editar_aluno> {
     }
   }
 
-  bool respostaMSG = false;
+  bool respostaMSG;
   Future mensagemExclusao(BuildContext context) async {
     return showDialog(
       context: context,
@@ -87,6 +87,7 @@ class _Editar_Aluno extends State<editar_aluno> {
   }
 
   delete(BuildContext context, ParentsModel _responsavel) async {
+    print(_responsavel.user.id);
     await repository.deletarAluno(_responsavel.user.id);
   }
 
@@ -383,7 +384,7 @@ class _Editar_Aluno extends State<editar_aluno> {
             height: 40,
             child: TextButton(
               onPressed: () async {
-                await mensagemExclusao(context);
+                respostaMSG = await mensagemExclusao(context);
                 if (respostaMSG == true) {
                   await delete(context, _responsaveis);
                   bool resposta = await mensagemConfirmacao(
