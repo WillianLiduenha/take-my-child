@@ -141,7 +141,7 @@ class _Pagina_inicial_pais extends State<pagina_inicial_pais> {
               Navigator.of(context)
                   .pushNamed('/ausenciaaluno', arguments: _responsaveis);
             } else {
-              await mensagem(context, "Motorista ainda não cadastrado!");
+              await mensagem(context, "Motorista ainda não vinculado!");
             }
           },
         ),
